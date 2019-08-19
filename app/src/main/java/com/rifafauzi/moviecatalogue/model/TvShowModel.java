@@ -7,13 +7,15 @@ public class TvShowModel {
     private String description;
     private String imagePath;
     private String release;
+    private String youtube;
 
-    public TvShowModel(String tvShowId, String title, String description, String imagePath, String release) {
+    public TvShowModel(String tvShowId, String title, String description, String imagePath, String release, String youtube) {
         this.tvShowId = tvShowId;
         this.title = title;
         this.description = description;
         this.imagePath = imagePath;
         this.release = release;
+        this.youtube = youtube;
     }
 
     public String getTvShowId() {
@@ -54,5 +56,13 @@ public class TvShowModel {
 
     public void setRelease(String release) {
         this.release = release;
+    }
+
+    public String getYoutube() {
+        return youtube;
+    }
+
+    public void setYoutube(String youtube) {
+        this.youtube = youtube;
     }
 }
