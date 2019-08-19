@@ -5,7 +5,7 @@ import com.rifafauzi.moviecatalogue.model.TvShowModel;
 
 import java.util.ArrayList;
 
-public class DataDummyMovies {
+public class DataDummy {
 
     public static ArrayList<MovieModel> generateDummyMovies() {
         ArrayList<MovieModel> movies = new ArrayList<>();
@@ -14,7 +14,7 @@ public class DataDummyMovies {
                 "m1",
                 "A Star Is Born",
                 "Seasoned musician Jackson Maine discovers — and falls in love with — struggling artist Ally. She has just about given up on her dream to make it big as a singer — until Jack coaxes her into the spotlight. But even as Ally's career takes off, the personal side of their relationship is breaking down, as Jack fights an ongoing battle with his own internal demons.",
-                "a",
+                "movie_a_start_is_born",
                 "October 3, 2018"));
         movies.add(new MovieModel(
                 "m2",
