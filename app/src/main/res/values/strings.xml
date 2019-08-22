@@ -6,4 +6,5 @@
     <string name="title">Judul</string>
     <string name="desc">Deskripsi</string>
     <string name="img">Gambar</string>
+    <string name="detail_movie">Detail Movie</string>
 </resources>
