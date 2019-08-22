@@ -11,6 +11,7 @@
         android:id="@+id/rv_movies"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="60dp"
         tools:listitem="@layout/list_item"/>
 
     <ProgressBar

@@ -4,14 +4,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.rifafauzi.moviecatalogue.R;
 import com.rifafauzi.moviecatalogue.model.MovieModel;
 import com.rifafauzi.moviecatalogue.model.TvShowModel;
@@ -27,6 +32,7 @@ public class DetailMovieActivity extends AppCompatActivity {
     private ImageView imageViewPoster;
     private MovieViewModel movieViewModel;
     private TvShowViewModel tvShowViewModel;
+    private FloatingActionButton btnTrailer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +48,7 @@ public class DetailMovieActivity extends AppCompatActivity {
         tvShowViewModel = ViewModelProviders.of(this).get(TvShowViewModel.class);
 
         collapsingToolbarLayout = findViewById(R.id.collapsingDetail);
+        btnTrailer = findViewById(R.id.btn_trailer);
         textViewDate = findViewById(R.id.tgl);
         textViewDesc = findViewById(R.id.desc);
         imageViewPoster = findViewById(R.id.poster);
@@ -70,6 +77,14 @@ public class DetailMovieActivity extends AppCompatActivity {
                 .apply(RequestOptions.placeholderOf(R.drawable.ic_image)
                         .error(R.drawable.ic_error))
                 .into(imageViewPoster);
+
+        btnTrailer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(movie.getYoutube()));
+                startActivity(intent);
+            }
+        });
     }
 
     private void setTvShow(TvShowModel tvShow) {
@@ -83,6 +98,14 @@ public class DetailMovieActivity extends AppCompatActivity {
                 .apply(RequestOptions.placeholderOf(R.drawable.ic_image)
                         .error(R.drawable.ic_error))
                 .into(imageViewPoster);
+
+        btnTrailer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(tvShow.getYoutube()));
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
