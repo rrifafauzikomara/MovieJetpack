@@ -12,8 +12,8 @@ public class TvShowViewModel extends ViewModel {
     private TvShowModel mTvShow;
     private String tvShowId;
 
-    public TvShowModel getTvShowModel() {
-        for (int i = 0; i < DataDummy.generateDummyTvShow().size(); i++) {
+    public TvShowModel getTvShowModel(String tvShowId) {
+        for (int i = 0; i < DataDummy.generateDummyMovies().size(); i++) {
             TvShowModel tvShowModel = DataDummy.generateDummyTvShow().get(i);
             if (tvShowModel.getTvShowId().equals(tvShowId)) {
                 mTvShow = tvShowModel;
