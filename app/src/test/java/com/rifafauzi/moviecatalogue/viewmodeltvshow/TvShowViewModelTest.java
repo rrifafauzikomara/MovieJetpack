@@ -1,6 +1,7 @@
-package com.rifafauzi.moviecatalogue.viewmodel;
+package com.rifafauzi.moviecatalogue.viewmodeltvshow;
 
 import com.rifafauzi.moviecatalogue.model.TvShowModel;
+import com.rifafauzi.moviecatalogue.viewmodel.TvShowViewModel;
 
 import org.junit.Before;
 import org.junit.Test;

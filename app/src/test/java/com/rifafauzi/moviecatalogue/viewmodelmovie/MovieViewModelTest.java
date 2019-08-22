@@ -1,6 +1,7 @@
-package com.rifafauzi.moviecatalogue.viewmodel;
+package com.rifafauzi.moviecatalogue.viewmodelmovie;
 
 import com.rifafauzi.moviecatalogue.model.MovieModel;
+import com.rifafauzi.moviecatalogue.viewmodel.MovieViewModel;
 
 import org.junit.Before;
 import org.junit.Test;
