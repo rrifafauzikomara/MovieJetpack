@@ -10,7 +10,6 @@ import java.util.List;
 public class TvShowViewModel extends ViewModel {
 
     private TvShowModel mTvShow;
-    private String tvShowId;
 
     public TvShowModel getTvShowModel(String tvShowId) {
         for (int i = 0; i < DataDummy.generateDummyMovies().size(); i++) {
@@ -24,13 +23,5 @@ public class TvShowViewModel extends ViewModel {
 
     public List<TvShowModel> getTvShow() {
         return DataDummy.generateDummyTvShow();
-    }
-
-    public String getTvShowId() {
-        return tvShowId;
-    }
-
-    public void setTvShowId(String tvShowId) {
-        this.tvShowId = tvShowId;
     }
 }

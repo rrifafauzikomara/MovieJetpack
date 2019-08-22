@@ -9,8 +9,7 @@ import java.util.List;
 
 public class MovieViewModel extends ViewModel {
 
-    public MovieModel mMovie;
-    private String movieId;
+    private MovieModel mMovie;
 
     public MovieModel getMovieModel(String movieId) {
         for (int i = 0; i < DataDummy.generateDummyMovies().size(); i++) {
@@ -24,13 +23,5 @@ public class MovieViewModel extends ViewModel {
 
     public List<MovieModel> getMovie() {
         return DataDummy.generateDummyMovies();
-    }
-
-    public String getMovieId() {
-        return movieId;
-    }
-
-    public void setMovieId(String movieId) {
-        this.movieId = movieId;
     }
 }
