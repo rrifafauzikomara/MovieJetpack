@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 
 import com.rifafauzi.moviecatalogue.R;
 import com.rifafauzi.moviecatalogue.adapter.MovieAdapter;
@@ -28,22 +27,18 @@ import java.util.List;
 public class MovieFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    private ProgressBar progressBar;
-    private MovieAdapter movieAdapter;
-    private MovieViewModel movieViewModel;
-    private List<MovieModel> movieModels;
 
     public MovieFragment() {
         // Required empty public constructor
     }
 
-    public static Fragment newInstance() {
+    static Fragment newInstance() {
         return new MovieFragment();
     }
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_movie, container, false);
@@ -53,17 +48,16 @@ public class MovieFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recyclerView = view.findViewById(R.id.rv_movies);
-        progressBar = view.findViewById(R.id.progress_bar);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         if (getActivity() != null) {
-            movieViewModel = ViewModelProviders.of(this).get(MovieViewModel.class);
-            movieModels = movieViewModel.getMovie();
+            MovieViewModel movieViewModel = ViewModelProviders.of(this).get(MovieViewModel.class);
+            List<MovieModel> movieModels = movieViewModel.getMovie();
 
-            movieAdapter = new MovieAdapter(getActivity());
+            MovieAdapter movieAdapter = new MovieAdapter(getActivity());
             movieAdapter.setListMovie(movieModels);
 
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

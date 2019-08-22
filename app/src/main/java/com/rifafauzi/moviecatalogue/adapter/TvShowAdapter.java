@@ -53,7 +53,7 @@ public class TvShowAdapter extends RecyclerView.Adapter<TvShowAdapter.TvShowView
         holder.textViewDate.setText(getTvShowModels().get(position).getRelease());
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(activity, DetailMovieActivity.class);
-            intent.putExtra(DetailMovieActivity.EXTRA_TVSHOW, getTvShowModels().get(position).getTvShowId());
+            intent.putExtra(DetailMovieActivity.EXTRA_TvSHOW, getTvShowModels().get(position).getTvShowId());
             activity.startActivity(intent);
         });
         Glide.with(holder.itemView.getContext())
@@ -69,14 +69,14 @@ public class TvShowAdapter extends RecyclerView.Adapter<TvShowAdapter.TvShowView
         return getTvShowModels().size();
     }
 
-    public class TvShowViewHolder extends RecyclerView.ViewHolder {
+    class TvShowViewHolder extends RecyclerView.ViewHolder {
 
         final TextView textViewTitle;
         final TextView textViewDesc;
         final TextView textViewDate;
         final ImageView imageViewPoster;
 
-        public TvShowViewHolder(@NonNull View itemView) {
+        TvShowViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewTitle = itemView.findViewById(R.id.movie_name);
             textViewDesc = itemView.findViewById(R.id.movie_desc);

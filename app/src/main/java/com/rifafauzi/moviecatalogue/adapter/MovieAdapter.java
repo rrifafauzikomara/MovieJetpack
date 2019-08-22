@@ -69,14 +69,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         return getMovieModels().size();
     }
 
-    public class MovieViewHolder extends RecyclerView.ViewHolder {
+    class MovieViewHolder extends RecyclerView.ViewHolder {
 
         final TextView textViewTitle;
         final TextView textViewDesc;
         final TextView textViewDate;
         final ImageView imageViewPoster;
 
-        public MovieViewHolder(@NonNull View itemView) {
+        MovieViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewTitle = itemView.findViewById(R.id.movie_name);
             textViewDesc = itemView.findViewById(R.id.movie_desc);

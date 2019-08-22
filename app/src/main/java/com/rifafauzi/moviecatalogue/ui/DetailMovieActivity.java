@@ -1,5 +1,6 @@
 package com.rifafauzi.moviecatalogue.ui;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProviders;
@@ -8,8 +9,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -26,12 +25,12 @@ import com.rifafauzi.moviecatalogue.viewmodel.TvShowViewModel;
 public class DetailMovieActivity extends AppCompatActivity {
 
     public static final String EXTRA_MOVIE = "extra_movie";
-    public static final String EXTRA_TVSHOW = "extra_tvShow";
+    public static final String EXTRA_TvSHOW = "extra_tvShow";
     private CollapsingToolbarLayout collapsingToolbarLayout;
     private TextView textViewDate, textViewDesc;
     private ImageView imageViewPoster;
-    private MovieViewModel movieViewModel;
-    private TvShowViewModel tvShowViewModel;
+    MovieViewModel movieViewModel;
+    TvShowViewModel tvShowViewModel;
     private FloatingActionButton btnTrailer;
 
     @Override
@@ -56,7 +55,7 @@ public class DetailMovieActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             String movieId = extras.getString(EXTRA_MOVIE);
-            String tvShowId = extras.getString(EXTRA_TVSHOW);
+            String tvShowId = extras.getString(EXTRA_TvSHOW);
             if (movieId != null) {
                 setMovie(movieViewModel.getMovieModel(movieId));
             } else if (tvShowId != null) {
@@ -78,12 +77,9 @@ public class DetailMovieActivity extends AppCompatActivity {
                         .error(R.drawable.ic_error))
                 .into(imageViewPoster);
 
-        btnTrailer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(movie.getYoutube()));
-                startActivity(intent);
-            }
+        btnTrailer.setOnClickListener(view -> {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(movie.getYoutube()));
+            startActivity(intent);
         });
     }
 
@@ -99,23 +95,17 @@ public class DetailMovieActivity extends AppCompatActivity {
                         .error(R.drawable.ic_error))
                 .into(imageViewPoster);
 
-        btnTrailer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(tvShow.getYoutube()));
-                startActivity(intent);
-            }
+        btnTrailer.setOnClickListener(view -> {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(tvShow.getYoutube()));
+            startActivity(intent);
         });
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case android.R.id.home : {
-                finish();
-                overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-                break;
-            }
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
         }
         return super.onOptionsItemSelected(item);
     }

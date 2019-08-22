@@ -13,14 +13,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 
 import com.rifafauzi.moviecatalogue.R;
-import com.rifafauzi.moviecatalogue.adapter.MovieAdapter;
 import com.rifafauzi.moviecatalogue.adapter.TvShowAdapter;
-import com.rifafauzi.moviecatalogue.model.MovieModel;
 import com.rifafauzi.moviecatalogue.model.TvShowModel;
-import com.rifafauzi.moviecatalogue.viewmodel.MovieViewModel;
 import com.rifafauzi.moviecatalogue.viewmodel.TvShowViewModel;
 
 import java.util.List;
@@ -31,21 +27,17 @@ import java.util.List;
 public class TvShowFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    private ProgressBar progressBar;
-    private TvShowAdapter tvShowAdapter;
-    private TvShowViewModel tvShowViewModel;
-    private List<TvShowModel> tvShowModels;
 
     public TvShowFragment() {
         // Required empty public constructor
     }
 
-    public static Fragment newInstance() {
+    static Fragment newInstance() {
         return new TvShowFragment();
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_tv_show, container, false);
@@ -55,17 +47,16 @@ public class TvShowFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recyclerView = view.findViewById(R.id.rv_tvShow);
-        progressBar = view.findViewById(R.id.progress_bar_tvShow);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         if (getActivity() != null) {
-            tvShowViewModel = ViewModelProviders.of(this).get(TvShowViewModel.class);
-            tvShowModels = tvShowViewModel.getTvShow();
+            TvShowViewModel tvShowViewModel = ViewModelProviders.of(this).get(TvShowViewModel.class);
+            List<TvShowModel> tvShowModels = tvShowViewModel.getTvShow();
 
-            tvShowAdapter = new TvShowAdapter(getActivity());
+            TvShowAdapter tvShowAdapter = new TvShowAdapter(getActivity());
             tvShowAdapter.setListTvShow(tvShowModels);
 
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
