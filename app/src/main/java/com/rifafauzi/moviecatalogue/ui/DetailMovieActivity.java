@@ -29,8 +29,6 @@ public class DetailMovieActivity extends AppCompatActivity {
     private CollapsingToolbarLayout collapsingToolbarLayout;
     private TextView textViewDate, textViewDesc;
     private ImageView imageViewPoster;
-    MovieViewModel movieViewModel;
-    TvShowViewModel tvShowViewModel;
     private FloatingActionButton btnTrailer;
 
     @Override
@@ -43,8 +41,8 @@ public class DetailMovieActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        movieViewModel = ViewModelProviders.of(this).get(MovieViewModel.class);
-        tvShowViewModel = ViewModelProviders.of(this).get(TvShowViewModel.class);
+        MovieViewModel movieViewModel = ViewModelProviders.of(this).get(MovieViewModel.class);
+        TvShowViewModel tvShowViewModel = ViewModelProviders.of(this).get(TvShowViewModel.class);
 
         collapsingToolbarLayout = findViewById(R.id.collapsingDetail);
         btnTrailer = findViewById(R.id.btn_trailer);
