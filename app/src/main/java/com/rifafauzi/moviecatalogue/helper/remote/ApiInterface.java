@@ -1,4 +1,4 @@
-package com.rifafauzi.moviecatalogue.data.remote;
+package com.rifafauzi.moviecatalogue.helper.remote;
 
 import com.rifafauzi.moviecatalogue.model.ResponseTvShow;
 import com.rifafauzi.moviecatalogue.model.ResponseMovies;

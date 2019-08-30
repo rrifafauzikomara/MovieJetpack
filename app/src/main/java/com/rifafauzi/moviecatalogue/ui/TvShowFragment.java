@@ -15,7 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.rifafauzi.moviecatalogue.Injection;
+import com.rifafauzi.moviecatalogue.di.Injection;
 import com.rifafauzi.moviecatalogue.R;
 import com.rifafauzi.moviecatalogue.adapter.TvShowAdapter;
 import com.rifafauzi.moviecatalogue.model.TvShow;

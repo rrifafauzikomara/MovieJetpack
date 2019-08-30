@@ -1,9 +1,9 @@
-package com.rifafauzi.moviecatalogue.data.remote;
+package com.rifafauzi.moviecatalogue.helper.remote;
 
 import androidx.annotation.NonNull;
 
 import com.rifafauzi.moviecatalogue.adapter.Contract;
-import com.rifafauzi.moviecatalogue.data.DataSource;
+import com.rifafauzi.moviecatalogue.helper.data.DataSource;
 import com.rifafauzi.moviecatalogue.model.ResponseMovies;
 import com.rifafauzi.moviecatalogue.model.ResponseTvShow;
 

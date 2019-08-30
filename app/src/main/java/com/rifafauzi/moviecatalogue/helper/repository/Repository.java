@@ -1,6 +1,7 @@
-package com.rifafauzi.moviecatalogue.data;
+package com.rifafauzi.moviecatalogue.helper.repository;
 
-import com.rifafauzi.moviecatalogue.data.remote.RemoteDataSource;
+import com.rifafauzi.moviecatalogue.helper.data.DataSource;
+import com.rifafauzi.moviecatalogue.helper.remote.RemoteDataSource;
 import com.rifafauzi.moviecatalogue.model.ResponseMovies;
 import com.rifafauzi.moviecatalogue.model.ResponseTvShow;
 

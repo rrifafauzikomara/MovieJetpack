@@ -2,8 +2,8 @@ package com.rifafauzi.moviecatalogue.viewmodel;
 
 import androidx.lifecycle.ViewModel;
 
-import com.rifafauzi.moviecatalogue.data.DataSource;
-import com.rifafauzi.moviecatalogue.data.Repository;
+import com.rifafauzi.moviecatalogue.helper.data.DataSource;
+import com.rifafauzi.moviecatalogue.helper.repository.Repository;
 import com.rifafauzi.moviecatalogue.model.ResponseTvShow;
 import com.rifafauzi.moviecatalogue.navigator.TvShowNavigator;
 

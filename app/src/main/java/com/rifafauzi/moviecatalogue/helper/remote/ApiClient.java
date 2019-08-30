@@ -1,4 +1,4 @@
-package com.rifafauzi.moviecatalogue.data.remote;
+package com.rifafauzi.moviecatalogue.helper.remote;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

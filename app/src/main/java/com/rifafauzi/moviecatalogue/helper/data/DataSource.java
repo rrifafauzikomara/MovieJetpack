@@ -1,4 +1,4 @@
-package com.rifafauzi.moviecatalogue.data;
+package com.rifafauzi.moviecatalogue.helper.data;
 
 import com.rifafauzi.moviecatalogue.model.ResponseMovies;
 import com.rifafauzi.moviecatalogue.model.ResponseTvShow;
@@ -6,7 +6,9 @@ import com.rifafauzi.moviecatalogue.model.ResponseTvShow;
 public interface DataSource {
 
     void getListMovies(GetMoviesCallback getMoviesCallback);
+//    void getDetailMovies(String movieId);
     void getListTvShow(GetTvShowCallback getTvShowCallback);
+//    void getDetailTvShow(String tvShowId);
 
 
     interface GetMoviesCallback {

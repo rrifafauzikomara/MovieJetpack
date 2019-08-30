@@ -1,23 +1,17 @@
 package com.rifafauzi.moviecatalogue.viewmodel;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.rifafauzi.moviecatalogue.data.DataSource;
-import com.rifafauzi.moviecatalogue.data.Repository;
-import com.rifafauzi.moviecatalogue.model.Movies;
+import com.rifafauzi.moviecatalogue.helper.data.DataSource;
+import com.rifafauzi.moviecatalogue.helper.repository.Repository;
 import com.rifafauzi.moviecatalogue.model.ResponseMovies;
 import com.rifafauzi.moviecatalogue.navigator.MoviesNavigator;
-
-import java.util.List;
 
 
 public class MovieViewModel extends ViewModel {
 
     private Repository repository;
     private MoviesNavigator moviesNavigator;
-    private MutableLiveData<List<Movies>> listMovies = new MutableLiveData<>();
 
     public MovieViewModel(Repository repository) {
         this.repository = repository;
@@ -52,9 +46,5 @@ public class MovieViewModel extends ViewModel {
                 moviesNavigator.errorLoadListMovies(errorMessage);
             }
         });
-    }
-
-    LiveData<List<Movies>> getMovies() {
-        return listMovies;
     }
 }
