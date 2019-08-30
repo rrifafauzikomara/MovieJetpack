@@ -1,6 +1,6 @@
 package com.rifafauzi.moviecatalogue.viewmodelmovie;
 
-import com.rifafauzi.moviecatalogue.model.MovieModel;
+import com.rifafauzi.moviecatalogue.model.Movies;
 import com.rifafauzi.moviecatalogue.viewmodel.MovieViewModel;
 
 import org.junit.Before;
@@ -13,12 +13,12 @@ import static org.junit.Assert.*;
 public class MovieViewModelTest {
 
     private MovieViewModel movieViewModel;
-    private MovieModel dataDummyMovie;
+    private Movies dataDummyMovie;
 
     @Before
     public void setUp() {
         movieViewModel = new MovieViewModel();
-        dataDummyMovie = new MovieModel(
+        dataDummyMovie = new Movies(
                 "m1",
                 "A Star Is Born",
                 "Seasoned musician Jackson Maine discovers — and falls in love with — struggling artist Ally. She has just about given up on her dream to make it big as a singer — until Jack coaxes her into the spotlight. But even as Ally's career takes off, the personal side of their relationship is breaking down, as Jack fights an ongoing battle with his own internal demons.",
@@ -29,14 +29,14 @@ public class MovieViewModelTest {
 
     @Test
     public void getMovie() {
-        List<MovieModel> movieModels = movieViewModel.getMovie();
-        assertNotNull(movieModels);
-        assertEquals(10, movieModels.size());
+        List<Movies> movies = movieViewModel.getMovie();
+        assertNotNull(movies);
+        assertEquals(10, movies.size());
     }
 
     @Test
     public void getDetailMovie() {
-        MovieModel movieModels = movieViewModel.getMovieModel("m1");
+        Movies movieModels = movieViewModel.getMovieModel("m1");
         assertNotNull(movieModels);
         assertEquals(dataDummyMovie.getMovieId(), movieViewModel.getMovieModel("m1").getMovieId());
         assertEquals(dataDummyMovie.getTitle(), movieViewModel.getMovieModel("m1").getTitle());

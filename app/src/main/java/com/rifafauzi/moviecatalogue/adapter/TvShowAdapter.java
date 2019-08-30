@@ -1,7 +1,5 @@
 package com.rifafauzi.moviecatalogue.adapter;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,29 +12,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.rifafauzi.moviecatalogue.R;
-import com.rifafauzi.moviecatalogue.model.TvShowModel;
-import com.rifafauzi.moviecatalogue.ui.DetailMovieActivity;
+import com.rifafauzi.moviecatalogue.model.TvShow;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class TvShowAdapter extends RecyclerView.Adapter<TvShowAdapter.TvShowViewHolder> {
 
-    private final Activity activity;
-    private List<TvShowModel> tvShowModels = new ArrayList<>();
+    private List<TvShow> tvShows;
 
-    public TvShowAdapter(Activity activity) {
-        this.activity = activity;
-    }
-
-    private List<TvShowModel> getTvShowModels() {
-        return tvShowModels;
-    }
-
-    public void setListTvShow(List<TvShowModel> listTvShow) {
-        if (listTvShow == null) return;
-        this.tvShowModels.clear();
-        this.tvShowModels.addAll(listTvShow);
+    public TvShowAdapter(List<TvShow> tvShows) {
+        this.tvShows = tvShows;
     }
 
     @NonNull
@@ -48,25 +33,25 @@ public class TvShowAdapter extends RecyclerView.Adapter<TvShowAdapter.TvShowView
 
     @Override
     public void onBindViewHolder(@NonNull TvShowAdapter.TvShowViewHolder holder, int position) {
-        holder.textViewTitle.setText(getTvShowModels().get(position).getTitle());
-        holder.textViewDesc.setText(getTvShowModels().get(position).getDescription());
-        holder.textViewDate.setText(getTvShowModels().get(position).getRelease());
-        holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(activity, DetailMovieActivity.class);
-            intent.putExtra(DetailMovieActivity.EXTRA_TvSHOW, getTvShowModels().get(position).getTvShowId());
-            activity.startActivity(intent);
-        });
+        TvShow data = tvShows.get(position);
+        holder.textViewTitle.setText(data.getName());
+        holder.textViewDesc.setText(data.getOverview());
+        holder.textViewDate.setText(data.getReleaseDate());
         Glide.with(holder.itemView.getContext())
-                .load(activity.getApplicationContext().getResources().getIdentifier(getTvShowModels().get(position).getImagePath(), "drawable", activity.getApplicationContext().getPackageName()))
-                .apply(RequestOptions.placeholderOf(R.drawable.ic_image)
+                .load(Contract.LINK_IMAGE + data.getPosterPath())
+                .apply(RequestOptions.placeholderOf(R.drawable.img_default_bg)
                         .error(R.drawable.ic_error))
                 .into(holder.imageViewPoster);
-
+//        holder.itemView.setOnClickListener(v -> {
+//            Intent intent = new Intent(activity, DetailMovieActivity.class);
+//            intent.putExtra(DetailMovieActivity.EXTRA_TvSHOW, getTvShows().get(position).getId());
+//            activity.startActivity(intent);
+//        });
     }
 
     @Override
     public int getItemCount() {
-        return getTvShowModels().size();
+        return tvShows.size();
     }
 
     class TvShowViewHolder extends RecyclerView.ViewHolder {

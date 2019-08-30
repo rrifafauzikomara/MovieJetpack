@@ -1,7 +1,5 @@
 package com.rifafauzi.moviecatalogue.adapter;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,29 +12,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.rifafauzi.moviecatalogue.R;
-import com.rifafauzi.moviecatalogue.model.MovieModel;
-import com.rifafauzi.moviecatalogue.ui.DetailMovieActivity;
+import com.rifafauzi.moviecatalogue.model.Movies;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
 
-    private final Activity activity;
-    private List<MovieModel> movieModels = new ArrayList<>();
+    private List<Movies> movies;
 
-    public MovieAdapter(Activity activity) {
-        this.activity = activity;
-    }
-
-    private List<MovieModel> getMovieModels() {
-        return movieModels;
-    }
-
-    public void setListMovie(List<MovieModel> listMovie) {
-        if (listMovie == null) return;
-        this.movieModels.clear();
-        this.movieModels.addAll(listMovie);
+    public MovieAdapter(List<Movies> movies) {
+        this.movies = movies;
     }
 
     @NonNull
@@ -48,25 +33,20 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     @Override
     public void onBindViewHolder(@NonNull MovieAdapter.MovieViewHolder holder, int position) {
-        holder.textViewTitle.setText(getMovieModels().get(position).getTitle());
-        holder.textViewDesc.setText(getMovieModels().get(position).getDescription());
-        holder.textViewDate.setText(getMovieModels().get(position).getRelease());
-        holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(activity, DetailMovieActivity.class);
-            intent.putExtra(DetailMovieActivity.EXTRA_MOVIE, getMovieModels().get(position).getMovieId());
-            activity.startActivity(intent);
-        });
+        Movies data = movies.get(position);
+        holder.textViewTitle.setText(data.getTitle());
+        holder.textViewDesc.setText(data.getOverview());
+        holder.textViewDate.setText(data.getReleaseDate());
         Glide.with(holder.itemView.getContext())
-                .load(activity.getApplicationContext().getResources().getIdentifier(getMovieModels().get(position).getImagePath(), "drawable", activity.getApplicationContext().getPackageName()))
-                .apply(RequestOptions.placeholderOf(R.drawable.ic_image)
+                .load(Contract.LINK_IMAGE + data.getPosterPath())
+                .apply(RequestOptions.placeholderOf(R.drawable.img_default_bg)
                         .error(R.drawable.ic_error))
                 .into(holder.imageViewPoster);
-
     }
 
     @Override
     public int getItemCount() {
-        return getMovieModels().size();
+        return movies.size();
     }
 
     class MovieViewHolder extends RecyclerView.ViewHolder {

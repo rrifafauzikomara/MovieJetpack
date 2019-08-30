@@ -48,4 +48,8 @@ ext {
     pagingVersion = '2.1.0'
     glideVersion = '4.9.0'
     idleResourceVersion = '3.2.0'
+    retrofitVersion= '2.6.0'
+    logingVersion = '3.10.0'
+    okhttpVersion = '2.6.0'
+    okioVersion = '1.15.0'
 }

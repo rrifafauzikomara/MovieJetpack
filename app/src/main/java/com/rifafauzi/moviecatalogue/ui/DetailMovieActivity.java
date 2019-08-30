@@ -17,8 +17,9 @@ import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.rifafauzi.moviecatalogue.R;
-import com.rifafauzi.moviecatalogue.model.MovieModel;
-import com.rifafauzi.moviecatalogue.model.TvShowModel;
+import com.rifafauzi.moviecatalogue.adapter.Contract;
+import com.rifafauzi.moviecatalogue.model.Movies;
+import com.rifafauzi.moviecatalogue.model.TvShow;
 import com.rifafauzi.moviecatalogue.viewmodel.MovieViewModel;
 import com.rifafauzi.moviecatalogue.viewmodel.TvShowViewModel;
 
@@ -54,49 +55,47 @@ public class DetailMovieActivity extends AppCompatActivity {
         if (extras != null) {
             String movieId = extras.getString(EXTRA_MOVIE);
             String tvShowId = extras.getString(EXTRA_TvSHOW);
-            if (movieId != null) {
-                setMovie(movieViewModel.getMovieModel(movieId));
-            } else if (tvShowId != null) {
-                setTvShow(tvShowViewModel.getTvShowModel(tvShowId));
-            }
+//            if (movieId != null) {
+//                setMovie(movieViewModel.getMovieModel(movieId));
+//            } else if (tvShowId != null) {
+//                setTvShow(tvShowViewModel.getTvShowModel(tvShowId));
+//            }
         }
 
     }
 
-    private void setMovie(MovieModel movie) {
+    private void setMovie(Movies movie) {
         collapsingToolbarLayout.setTitle(movie.getTitle());
-        textViewDate.setText(movie.getRelease());
-        textViewDesc.setText(movie.getDescription());
+        textViewDate.setText(movie.getReleaseDate());
+        textViewDesc.setText(movie.getOverview());
 
         Glide.with(getApplicationContext())
-                .load(getApplicationContext().getResources().getIdentifier(movie.getImagePath(),
-                        "drawable", getApplicationContext().getPackageName()))
+                .load(Contract.LINK_IMAGE + movie.getPosterPath())
                 .apply(RequestOptions.placeholderOf(R.drawable.ic_image)
                         .error(R.drawable.ic_error))
                 .into(imageViewPoster);
 
-        btnTrailer.setOnClickListener(view -> {
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(movie.getYoutube()));
-            startActivity(intent);
-        });
+//        btnTrailer.setOnClickListener(view -> {
+//            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(movie.getYoutube()));
+//            startActivity(intent);
+//        });
     }
 
-    private void setTvShow(TvShowModel tvShow) {
-        collapsingToolbarLayout.setTitle(tvShow.getTitle());
-        textViewDate.setText(tvShow.getRelease());
-        textViewDesc.setText(tvShow.getDescription());
+    private void setTvShow(TvShow tvShow) {
+        collapsingToolbarLayout.setTitle(tvShow.getName());
+        textViewDate.setText(tvShow.getReleaseDate());
+        textViewDesc.setText(tvShow.getOverview());
 
         Glide.with(getApplicationContext())
-                .load(getApplicationContext().getResources().getIdentifier(tvShow.getImagePath(),
-                        "drawable", getApplicationContext().getPackageName()))
+                .load(Contract.LINK_IMAGE + tvShow.getPosterPath())
                 .apply(RequestOptions.placeholderOf(R.drawable.ic_image)
                         .error(R.drawable.ic_error))
                 .into(imageViewPoster);
 
-        btnTrailer.setOnClickListener(view -> {
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(tvShow.getYoutube()));
-            startActivity(intent);
-        });
+//        btnTrailer.setOnClickListener(view -> {
+//            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(tvShow.getYoutube()));
+//            startActivity(intent);
+//        });
     }
 
     @Override

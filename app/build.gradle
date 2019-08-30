@@ -21,6 +21,9 @@ android {
             debuggable true
         }
     }
+    buildTypes.each {
+        it.buildConfigField 'String', 'MOVIE_DB_API_KEY', MovieDbApiKey
+    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -76,4 +79,13 @@ dependencies {
 
     // Dependencies for Idle Resource
     implementation "androidx.test.espresso:espresso-idling-resource:$idleResourceVersion"
+
+    //retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+
+    //network
+    implementation "com.squareup.okhttp3:logging-interceptor:$logingVersion"
+    implementation "com.squareup.okhttp:okhttp:$okhttpVersion"
+    implementation "com.squareup.okio:okio:$okioVersion"
 }
