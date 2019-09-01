@@ -90,8 +90,10 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:$logingVersion"
     implementation "com.squareup.okhttp:okhttp:$okhttpVersion"
     implementation "com.squareup.okio:okio:$okioVersion"
-    implementation "androidx.core:core-ktx:+"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.0.0"
+
+    //kotlin
+    implementation "androidx.core:core-ktx:$ktxCore"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$viewModelKtx"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 repositories {

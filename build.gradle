@@ -54,4 +54,6 @@ ext {
     logingVersion = '3.10.0'
     okhttpVersion = '2.6.0'
     okioVersion = '1.15.0'
+    ktxCore = '1.0.2'
+    viewModelKtx = '2.0.0'
 }

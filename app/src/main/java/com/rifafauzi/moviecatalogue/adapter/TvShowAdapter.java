@@ -1,5 +1,6 @@
 package com.rifafauzi.moviecatalogue.adapter;
 
+import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,14 +15,22 @@ import com.bumptech.glide.request.RequestOptions;
 import com.rifafauzi.moviecatalogue.R;
 import com.rifafauzi.moviecatalogue.model.TvShow;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TvShowAdapter extends RecyclerView.Adapter<TvShowAdapter.TvShowViewHolder> {
 
-    private List<TvShow> tvShows;
+    private final Activity activity;
+    private List<TvShow> tvShows = new ArrayList<>();
 
-    public TvShowAdapter(List<TvShow> tvShows) {
-        this.tvShows = tvShows;
+    public TvShowAdapter(Activity activity) {
+        this.activity = activity;
+    }
+
+    public void setListTvShow(List<TvShow> listTvShow) {
+        if (listTvShow == null) return;
+        this.tvShows.clear();
+        this.tvShows.addAll(listTvShow);
     }
 
     @NonNull
@@ -42,11 +51,6 @@ public class TvShowAdapter extends RecyclerView.Adapter<TvShowAdapter.TvShowView
                 .apply(RequestOptions.placeholderOf(R.drawable.img_default_bg)
                         .error(R.drawable.ic_error))
                 .into(holder.imageViewPoster);
-//        holder.itemView.setOnClickListener(v -> {
-//            Intent intent = new Intent(activity, DetailMovieActivity.class);
-//            intent.putExtra(DetailMovieActivity.EXTRA_TvSHOW, getTvShows().get(position).getId());
-//            activity.startActivity(intent);
-//        });
     }
 
     @Override

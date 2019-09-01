@@ -1,5 +1,6 @@
 package com.rifafauzi.moviecatalogue.adapter;
 
+import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,14 +15,22 @@ import com.bumptech.glide.request.RequestOptions;
 import com.rifafauzi.moviecatalogue.R;
 import com.rifafauzi.moviecatalogue.model.Movies;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
 
-    private List<Movies> movies;
+    private final Activity activity;
+    private List<Movies> movies = new ArrayList<>();
 
-    public MovieAdapter(List<Movies> movies) {
-        this.movies = movies;
+    public MovieAdapter(Activity activity) {
+        this.activity = activity;
+    }
+
+    public void setListMovies(List<Movies> listMovies) {
+        if (listMovies == null) return;
+        this.movies.clear();
+        this.movies.addAll(listMovies);
     }
 
     @NonNull

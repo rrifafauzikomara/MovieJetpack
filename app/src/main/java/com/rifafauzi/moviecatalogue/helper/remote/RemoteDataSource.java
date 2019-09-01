@@ -3,7 +3,6 @@ package com.rifafauzi.moviecatalogue.helper.remote;
 import androidx.annotation.NonNull;
 
 import com.rifafauzi.moviecatalogue.adapter.Contract;
-import com.rifafauzi.moviecatalogue.helper.data.DataSource;
 import com.rifafauzi.moviecatalogue.model.ResponseMovies;
 import com.rifafauzi.moviecatalogue.model.ResponseTvShow;
 
@@ -11,11 +10,22 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RemoteDataSource implements DataSource {
+public class RemoteDataSource {
 
-    private ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+    private static RemoteDataSource INSTANCE;
+    private ApiInterface apiInterface;
 
-    @Override
+    private RemoteDataSource(ApiInterface apiInterface) {
+        this.apiInterface = apiInterface;
+    }
+
+    public static RemoteDataSource getInstance(ApiInterface apiInterface) {
+        if (INSTANCE == null) {
+            INSTANCE = new RemoteDataSource(apiInterface);
+        }
+        return INSTANCE;
+    }
+
     public void getListMovies(GetMoviesCallback getMoviesCallback) {
         Call<ResponseMovies> call = apiInterface.getAllMovies(Contract.API_KEY, Contract.LANG, Contract.SORT_BY);
         call.enqueue(new Callback<ResponseMovies>() {
@@ -31,7 +41,6 @@ public class RemoteDataSource implements DataSource {
         });
     }
 
-    @Override
     public void getListTvShow(GetTvShowCallback getTvShowCallback) {
         Call<ResponseTvShow> call = apiInterface.getAllTvShow(Contract.API_KEY, Contract.LANG, Contract.SORT_BY);
         call.enqueue(new Callback<ResponseTvShow>() {
@@ -45,5 +54,15 @@ public class RemoteDataSource implements DataSource {
                 getTvShowCallback.onDataNotAvailable(t.toString());
             }
         });
+    }
+
+    public interface GetMoviesCallback {
+        void onMoviesLoaded(ResponseMovies responseMovies);
+        void onDataNotAvailable(String errorMessage);
+    }
+
+    public interface GetTvShowCallback {
+        void onTvShowLoaded(ResponseTvShow responseTvShow);
+        void onDataNotAvailable(String errorMessage);
     }
 }

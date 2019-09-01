@@ -1,39 +1,40 @@
 package com.rifafauzi.moviecatalogue.ui;
 
-
-import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.widget.ProgressBar;
 
-import com.rifafauzi.moviecatalogue.di.Injection;
 import com.rifafauzi.moviecatalogue.R;
 import com.rifafauzi.moviecatalogue.adapter.TvShowAdapter;
-import com.rifafauzi.moviecatalogue.model.TvShow;
-import com.rifafauzi.moviecatalogue.navigator.TvShowNavigator;
 import com.rifafauzi.moviecatalogue.viewmodel.TvShowViewModel;
+import com.rifafauzi.moviecatalogue.viewmodel.ViewModelFactory;
 
-import java.util.ArrayList;
-import java.util.List;
 
-public class TvShowFragment extends Fragment implements TvShowNavigator {
+public class TvShowFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    private ProgressDialog progressDialog;
+    private ProgressBar progressBar;
     private TvShowAdapter tvShowAdapter;
-    private List<TvShow> tvShows;
 
     static Fragment newInstance() {
         return new TvShowFragment();
+    }
+
+    @NonNull
+    private TvShowViewModel obtainViewModel() {
+        // Use a Factory to inject dependencies into the ViewModel
+        ViewModelFactory factory = ViewModelFactory.getInstance();
+        return ViewModelProviders.of(this, factory).get(TvShowViewModel.class);
     }
 
     @Override
@@ -47,45 +48,27 @@ public class TvShowFragment extends Fragment implements TvShowNavigator {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recyclerView = view.findViewById(R.id.rv_tvShow);
+        progressBar = view.findViewById(R.id.progress_bar_tvShow);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         if (getActivity() != null) {
-            TvShowViewModel tvShowViewModel = new TvShowViewModel(Injection.repository());
-            tvShows = new ArrayList<>();
-            tvShowViewModel.setTvShowNavigator(this);
-            tvShowViewModel.getListTvShow();
+            progressBar.setVisibility(View.VISIBLE);
+            TvShowViewModel tvShowViewModel = obtainViewModel();
+            tvShowAdapter = new TvShowAdapter(getActivity());
 
-            tvShowAdapter = new TvShowAdapter(tvShows);
+            tvShowViewModel.getListTvShow().observe(this, tvShowList -> {
+                progressBar.setVisibility(View.GONE);
+                tvShowAdapter.setListTvShow(tvShowList);
+                tvShowAdapter.notifyDataSetChanged();
+            });
+
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             recyclerView.setHasFixedSize(true);
             recyclerView.setAdapter(tvShowAdapter);
+
         }
-    }
-
-    @Override
-    public void showProgress() {
-        progressDialog = new ProgressDialog(getContext());
-        progressDialog.setMessage("Loading....");
-        progressDialog.setTitle("Harap tunggu");
-        progressDialog.show();
-    }
-
-    @Override
-    public void hideProgress() {
-        progressDialog.dismiss();
-    }
-
-    @Override
-    public void loadListTvShow(List<TvShow> tvShowList) {
-        tvShows.addAll(tvShowList);
-        tvShowAdapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void errorLoadListTvShow(String message) {
-        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 }
