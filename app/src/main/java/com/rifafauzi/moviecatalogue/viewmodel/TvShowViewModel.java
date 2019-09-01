@@ -21,4 +21,8 @@ public class TvShowViewModel extends ViewModel {
         return repository.getTvShowsList();
     }
 
+    public LiveData<TvShow> getDetailTvShow(int tvId) {
+        return repository.getTvShowsDetail(tvId);
+    }
+
 }

@@ -55,6 +55,24 @@ public class Repository implements DataSource {
 
     @NotNull
     @Override
+    public LiveData<Movies> getMovieDetail(int movieId) {
+        MutableLiveData<Movies> moviesDetail = new MutableLiveData<>();
+        remoteDataSource.getMoviesDetail(movieId, new RemoteDataSource.GetMoviesDetailCallback() {
+            @Override
+            public void onMoviesDetailLoaded(Movies responseMovies) {
+                moviesDetail.postValue(responseMovies);
+            }
+
+            @Override
+            public void onDataNotAvailable(String errorMessage) {
+
+            }
+        });
+        return moviesDetail;
+    }
+
+    @NotNull
+    @Override
     public LiveData<List<TvShow>> getTvShowsList() {
         MutableLiveData<List<TvShow>> listTvShow = new MutableLiveData<>();
         remoteDataSource.getListTvShow(new RemoteDataSource.GetTvShowCallback() {
@@ -69,5 +87,23 @@ public class Repository implements DataSource {
             }
         });
         return listTvShow;
+    }
+
+    @NotNull
+    @Override
+    public LiveData<TvShow> getTvShowsDetail(int tvId) {
+        MutableLiveData<TvShow> tvShowDetail = new MutableLiveData<>();
+        remoteDataSource.getTvShowDetail(tvId, new RemoteDataSource.GetTvShowDetailCallback() {
+            @Override
+            public void onTvShowDetailLoaded(TvShow responseTvShow) {
+                tvShowDetail.postValue(responseTvShow);
+            }
+
+            @Override
+            public void onDataNotAvailable(String errorMessage) {
+
+            }
+        });
+        return tvShowDetail;
     }
 }

@@ -5,23 +5,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProviders;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.rifafauzi.moviecatalogue.R;
 import com.rifafauzi.moviecatalogue.adapter.Contract;
-import com.rifafauzi.moviecatalogue.model.Movies;
-import com.rifafauzi.moviecatalogue.model.TvShow;
 import com.rifafauzi.moviecatalogue.viewmodel.MovieViewModel;
 import com.rifafauzi.moviecatalogue.viewmodel.TvShowViewModel;
+import com.rifafauzi.moviecatalogue.viewmodel.ViewModelFactory;
 
 public class DetailMovieActivity extends AppCompatActivity {
 
@@ -30,7 +28,21 @@ public class DetailMovieActivity extends AppCompatActivity {
     private CollapsingToolbarLayout collapsingToolbarLayout;
     private TextView textViewDate, textViewDesc;
     private ImageView imageViewPoster;
-    private FloatingActionButton btnTrailer;
+    private ProgressBar progressBar;
+
+    @NonNull
+    private MovieViewModel obtainViewModelMovies() {
+        // Use a Factory to inject dependencies into the ViewModel
+        ViewModelFactory factory = ViewModelFactory.getInstance();
+        return ViewModelProviders.of(this, factory).get(MovieViewModel.class);
+    }
+
+    @NonNull
+    private TvShowViewModel obtainViewModelTvShow() {
+        // Use a Factory to inject dependencies into the ViewModel
+        ViewModelFactory factory = ViewModelFactory.getInstance();
+        return ViewModelProviders.of(this, factory).get(TvShowViewModel.class);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,60 +54,46 @@ public class DetailMovieActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        MovieViewModel movieViewModel = ViewModelProviders.of(this).get(MovieViewModel.class);
-        TvShowViewModel tvShowViewModel = ViewModelProviders.of(this).get(TvShowViewModel.class);
-
         collapsingToolbarLayout = findViewById(R.id.collapsingDetail);
-        btnTrailer = findViewById(R.id.btn_trailer);
         textViewDate = findViewById(R.id.tgl);
         textViewDesc = findViewById(R.id.desc);
         imageViewPoster = findViewById(R.id.poster);
+        progressBar = findViewById(R.id.progress_bar_detail);
 
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            String movieId = extras.getString(EXTRA_MOVIE);
-            String tvShowId = extras.getString(EXTRA_TvSHOW);
-//            if (movieId != null) {
-//                setMovie(movieViewModel.getMovieModel(movieId));
-//            } else if (tvShowId != null) {
-//                setTvShow(tvShowViewModel.getTvShowModel(tvShowId));
-//            }
+        MovieViewModel movieViewModel = obtainViewModelMovies();
+        TvShowViewModel tvShowViewModel = obtainViewModelTvShow();
+
+        int movieId = getIntent().getIntExtra(EXTRA_MOVIE, 0);
+        int tvShowId = getIntent().getIntExtra(EXTRA_TvSHOW, 0);
+        if (movieId != 0) {
+            progressBar.setVisibility(View.VISIBLE);
+            movieViewModel.getDetailMovie(movieId).observe(this, movies -> {
+                progressBar.setVisibility(View.GONE);
+                collapsingToolbarLayout.setTitle(movies.getTitle());
+                textViewDate.setText(movies.getReleaseDate());
+                textViewDesc.setText(movies.getOverview());
+                Glide.with(getApplicationContext())
+                        .load(Contract.LINK_IMAGE + movies.getPosterPath())
+                        .apply(RequestOptions.placeholderOf(R.drawable.ic_image)
+                                .error(R.drawable.ic_error))
+                        .into(imageViewPoster);
+            });
+        } else if (tvShowId != 0) {
+            progressBar.setVisibility(View.VISIBLE);
+            tvShowViewModel.getDetailTvShow(tvShowId).observe(this, tvShow -> {
+                progressBar.setVisibility(View.GONE);
+                collapsingToolbarLayout.setTitle(tvShow.getName());
+                textViewDate.setText(tvShow.getReleaseDate());
+                textViewDesc.setText(tvShow.getOverview());
+
+                Glide.with(getApplicationContext())
+                        .load(Contract.LINK_IMAGE + tvShow.getPosterPath())
+                        .apply(RequestOptions.placeholderOf(R.drawable.ic_image)
+                                .error(R.drawable.ic_error))
+                        .into(imageViewPoster);
+            });
         }
 
-    }
-
-    private void setMovie(Movies movie) {
-        collapsingToolbarLayout.setTitle(movie.getTitle());
-        textViewDate.setText(movie.getReleaseDate());
-        textViewDesc.setText(movie.getOverview());
-
-        Glide.with(getApplicationContext())
-                .load(Contract.LINK_IMAGE + movie.getPosterPath())
-                .apply(RequestOptions.placeholderOf(R.drawable.ic_image)
-                        .error(R.drawable.ic_error))
-                .into(imageViewPoster);
-
-//        btnTrailer.setOnClickListener(view -> {
-//            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(movie.getYoutube()));
-//            startActivity(intent);
-//        });
-    }
-
-    private void setTvShow(TvShow tvShow) {
-        collapsingToolbarLayout.setTitle(tvShow.getName());
-        textViewDate.setText(tvShow.getReleaseDate());
-        textViewDesc.setText(tvShow.getOverview());
-
-        Glide.with(getApplicationContext())
-                .load(Contract.LINK_IMAGE + tvShow.getPosterPath())
-                .apply(RequestOptions.placeholderOf(R.drawable.ic_image)
-                        .error(R.drawable.ic_error))
-                .into(imageViewPoster);
-
-//        btnTrailer.setOnClickListener(view -> {
-//            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(tvShow.getYoutube()));
-//            startActivity(intent);
-//        });
     }
 
     @Override

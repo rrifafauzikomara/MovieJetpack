@@ -20,4 +20,8 @@ public class MovieViewModel extends ViewModel {
     public LiveData<List<Movies>> getListMovies() {
         return repository.getMovieList();
     }
+
+    public LiveData<Movies> getDetailMovie(int movieId) {
+        return repository.getMovieDetail(movieId);
+    }
 }

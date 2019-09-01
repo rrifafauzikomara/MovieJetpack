@@ -1,6 +1,7 @@
 package com.rifafauzi.moviecatalogue.adapter;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.rifafauzi.moviecatalogue.R;
 import com.rifafauzi.moviecatalogue.model.Movies;
+import com.rifafauzi.moviecatalogue.ui.DetailMovieActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +53,11 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
                 .apply(RequestOptions.placeholderOf(R.drawable.img_default_bg)
                         .error(R.drawable.ic_error))
                 .into(holder.imageViewPoster);
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(activity, DetailMovieActivity.class);
+            intent.putExtra(DetailMovieActivity.EXTRA_MOVIE, data.getId());
+            activity.startActivity(intent);
+        });
     }
 
     @Override
