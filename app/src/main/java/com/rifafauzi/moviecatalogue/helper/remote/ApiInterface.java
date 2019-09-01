@@ -23,13 +23,13 @@ public interface ApiInterface {
                                       @Query("sort_by") String sort_by);
 
     @GET("3/movie/{movie_id}")
-    Call<Movies> getDetailMovie(@Path("movie_id") int movie_id,
+    Call<Movies> getDetailMovie(@Path("movie_id") String movie_id,
                                 @Query("api_key") String api_key,
                                 @Query("language") String language);
 
     @GET("3/tv/{tv_id}")
-    Call<TvShow> getDetailTvShow(@Path("tv_id") int tv_id,
-                                        @Query("api_key") String api_key,
-                                        @Query("language") String language);
+    Call<TvShow> getDetailTvShow(@Path("tv_id") String tv_id,
+                                 @Query("api_key") String api_key,
+                                 @Query("language") String language);
 
 }

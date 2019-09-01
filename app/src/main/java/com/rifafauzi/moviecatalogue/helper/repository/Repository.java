@@ -55,7 +55,7 @@ public class Repository implements DataSource {
 
     @NotNull
     @Override
-    public LiveData<Movies> getMovieDetail(int movieId) {
+    public LiveData<Movies> getMovieDetail(String movieId) {
         MutableLiveData<Movies> moviesDetail = new MutableLiveData<>();
         remoteDataSource.getMoviesDetail(movieId, new RemoteDataSource.GetMoviesDetailCallback() {
             @Override
@@ -91,7 +91,7 @@ public class Repository implements DataSource {
 
     @NotNull
     @Override
-    public LiveData<TvShow> getTvShowsDetail(int tvId) {
+    public LiveData<TvShow> getTvShowsDetail(String tvId) {
         MutableLiveData<TvShow> tvShowDetail = new MutableLiveData<>();
         remoteDataSource.getTvShowDetail(tvId, new RemoteDataSource.GetTvShowDetailCallback() {
             @Override

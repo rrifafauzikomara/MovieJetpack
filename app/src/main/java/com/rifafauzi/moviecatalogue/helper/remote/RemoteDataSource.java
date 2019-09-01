@@ -43,7 +43,7 @@ public class RemoteDataSource {
         });
     }
 
-    public void getMoviesDetail(int movieId, GetMoviesDetailCallback getMoviesDetailCallback) {
+    public void getMoviesDetail(String movieId, GetMoviesDetailCallback getMoviesDetailCallback) {
         Call<Movies> call = apiInterface.getDetailMovie(movieId, Contract.API_KEY, Contract.LANG);
         call.enqueue(new Callback<Movies>() {
             @Override
@@ -73,7 +73,7 @@ public class RemoteDataSource {
         });
     }
 
-    public void getTvShowDetail(int tv_id, GetTvShowDetailCallback getTvShowDetailCallback) {
+    public void getTvShowDetail(String tv_id, GetTvShowDetailCallback getTvShowDetailCallback) {
         Call<TvShow> call = apiInterface.getDetailTvShow(tv_id, Contract.API_KEY, Contract.LANG);
         call.enqueue(new Callback<TvShow>() {
             @Override

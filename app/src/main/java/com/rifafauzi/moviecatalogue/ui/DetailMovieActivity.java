@@ -63,35 +63,37 @@ public class DetailMovieActivity extends AppCompatActivity {
         MovieViewModel movieViewModel = obtainViewModelMovies();
         TvShowViewModel tvShowViewModel = obtainViewModelTvShow();
 
-        int movieId = getIntent().getIntExtra(EXTRA_MOVIE, 0);
-        int tvShowId = getIntent().getIntExtra(EXTRA_TvSHOW, 0);
-        if (movieId != 0) {
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            String movieId = extras.getString(EXTRA_MOVIE);
+            String tvShowId = extras.getString(EXTRA_TvSHOW);
             progressBar.setVisibility(View.VISIBLE);
-            movieViewModel.getDetailMovie(movieId).observe(this, movies -> {
-                progressBar.setVisibility(View.GONE);
-                collapsingToolbarLayout.setTitle(movies.getTitle());
-                textViewDate.setText(movies.getReleaseDate());
-                textViewDesc.setText(movies.getOverview());
-                Glide.with(getApplicationContext())
-                        .load(Contract.LINK_IMAGE + movies.getPosterPath())
-                        .apply(RequestOptions.placeholderOf(R.drawable.ic_image)
-                                .error(R.drawable.ic_error))
-                        .into(imageViewPoster);
-            });
-        } else if (tvShowId != 0) {
-            progressBar.setVisibility(View.VISIBLE);
-            tvShowViewModel.getDetailTvShow(tvShowId).observe(this, tvShow -> {
-                progressBar.setVisibility(View.GONE);
-                collapsingToolbarLayout.setTitle(tvShow.getName());
-                textViewDate.setText(tvShow.getReleaseDate());
-                textViewDesc.setText(tvShow.getOverview());
+            if (movieId != null) {
+                movieViewModel.getDetailMovie(movieId).observe(this, movies -> {
+                    progressBar.setVisibility(View.GONE);
+                    collapsingToolbarLayout.setTitle(movies.getTitle());
+                    textViewDate.setText(movies.getReleaseDate());
+                    textViewDesc.setText(movies.getOverview());
+                    Glide.with(getApplicationContext())
+                            .load(Contract.LINK_IMAGE + movies.getPosterPath())
+                            .apply(RequestOptions.placeholderOf(R.drawable.ic_image)
+                                    .error(R.drawable.ic_error))
+                            .into(imageViewPoster);
+                });
+            } else if (tvShowId != null) {
+                tvShowViewModel.getDetailTvShow(tvShowId).observe(this, tvShow -> {
+                    progressBar.setVisibility(View.GONE);
+                    collapsingToolbarLayout.setTitle(tvShow.getName());
+                    textViewDate.setText(tvShow.getReleaseDate());
+                    textViewDesc.setText(tvShow.getOverview());
 
-                Glide.with(getApplicationContext())
-                        .load(Contract.LINK_IMAGE + tvShow.getPosterPath())
-                        .apply(RequestOptions.placeholderOf(R.drawable.ic_image)
-                                .error(R.drawable.ic_error))
-                        .into(imageViewPoster);
-            });
+                    Glide.with(getApplicationContext())
+                            .load(Contract.LINK_IMAGE + tvShow.getPosterPath())
+                            .apply(RequestOptions.placeholderOf(R.drawable.ic_image)
+                                    .error(R.drawable.ic_error))
+                            .into(imageViewPoster);
+                });
+            }
         }
 
     }
