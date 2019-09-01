@@ -13,7 +13,7 @@ public class TvShowViewModel extends ViewModel {
 
     private Repository repository;
 
-    public TvShowViewModel(Repository repository) {
+    TvShowViewModel(Repository repository) {
         this.repository = repository;
     }
 

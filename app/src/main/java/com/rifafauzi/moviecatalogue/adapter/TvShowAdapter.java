@@ -55,7 +55,7 @@ public class TvShowAdapter extends RecyclerView.Adapter<TvShowAdapter.TvShowView
                 .into(holder.imageViewPoster);
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(activity, DetailMovieActivity.class);
-            intent.putExtra(DetailMovieActivity.EXTRA_TvSHOW, ""+data.getId());
+            intent.putExtra(DetailMovieActivity.EXTRA_TvSHOW, String.valueOf(data.getId()));
             activity.startActivity(intent);
         });
     }

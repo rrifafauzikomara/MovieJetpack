@@ -13,7 +13,7 @@ public class MovieViewModel extends ViewModel {
 
     private Repository repository;
 
-    public MovieViewModel(Repository repository) {
+    MovieViewModel(Repository repository) {
         this.repository = repository;
     }
 

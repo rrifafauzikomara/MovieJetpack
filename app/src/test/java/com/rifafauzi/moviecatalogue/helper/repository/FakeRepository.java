@@ -15,21 +15,21 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class Repository implements DataSource {
+public class FakeRepository implements DataSource {
 
     private RemoteDataSource remoteDataSource;
 
-    private volatile static Repository INSTANCE = null;
+    private volatile static FakeRepository INSTANCE = null;
 
-    private Repository(RemoteDataSource remoteDataSource) {
+    FakeRepository(RemoteDataSource remoteDataSource) {
         this.remoteDataSource = remoteDataSource;
     }
 
-    public static Repository getInstance(RemoteDataSource remoteDataSource) {
+    public static FakeRepository getInstance(RemoteDataSource remoteDataSource) {
         if (INSTANCE == null) {
-            synchronized (Repository.class) {
+            synchronized (FakeRepository.class) {
                 if (INSTANCE == null) {
-                    INSTANCE = new Repository(remoteDataSource);
+                    INSTANCE = new FakeRepository(remoteDataSource);
                 }
             }
         }
@@ -92,7 +92,7 @@ public class Repository implements DataSource {
 
     @NotNull
     @Override
-    public LiveData<TvShow> getTvShowsDetail(@NonNull String tvId) {
+    public LiveData<TvShow> getTvShowsDetail(@NotNull String tvId) {
         MutableLiveData<TvShow> tvShowDetail = new MutableLiveData<>();
         remoteDataSource.getTvShowDetail(tvId, new RemoteDataSource.GetTvShowDetailCallback() {
             @Override

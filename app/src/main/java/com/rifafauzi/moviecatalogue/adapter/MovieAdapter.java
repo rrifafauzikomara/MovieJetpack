@@ -55,7 +55,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
                 .into(holder.imageViewPoster);
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(activity, DetailMovieActivity.class);
-            intent.putExtra(DetailMovieActivity.EXTRA_MOVIE, ""+data.getId());
+            intent.putExtra(DetailMovieActivity.EXTRA_MOVIE, String.valueOf(data.getId()));
             activity.startActivity(intent);
         });
     }
