@@ -7,8 +7,6 @@ import androidx.lifecycle.MutableLiveData;
 import com.rifafauzi.moviecatalogue.helper.data.DataSource;
 import com.rifafauzi.moviecatalogue.helper.remote.RemoteDataSource;
 import com.rifafauzi.moviecatalogue.model.Movies;
-import com.rifafauzi.moviecatalogue.model.ResponseMovies;
-import com.rifafauzi.moviecatalogue.model.ResponseTvShow;
 import com.rifafauzi.moviecatalogue.model.TvShow;
 
 import org.jetbrains.annotations.NotNull;
@@ -42,8 +40,8 @@ public class FakeRepository implements DataSource {
         MutableLiveData<List<Movies>> listMovies = new MutableLiveData<>();
         remoteDataSource.getListMovies(new RemoteDataSource.GetMoviesCallback() {
             @Override
-            public void onMoviesLoaded(ResponseMovies responseMovies) {
-                listMovies.postValue(responseMovies.getMovies());
+            public void onMoviesLoaded(List<Movies> responseMovies) {
+                listMovies.postValue(responseMovies);
             }
 
             @Override
@@ -78,8 +76,8 @@ public class FakeRepository implements DataSource {
         MutableLiveData<List<TvShow>> listTvShow = new MutableLiveData<>();
         remoteDataSource.getListTvShow(new RemoteDataSource.GetTvShowCallback() {
             @Override
-            public void onTvShowLoaded(ResponseTvShow responseTvShow) {
-                listTvShow.postValue(responseTvShow.getTvShows());
+            public void onTvShowLoaded(List<TvShow> responseTvShow) {
+                listTvShow.postValue(responseTvShow);
             }
 
             @Override
@@ -92,7 +90,7 @@ public class FakeRepository implements DataSource {
 
     @NotNull
     @Override
-    public LiveData<TvShow> getTvShowsDetail(@NotNull String tvId) {
+    public LiveData<TvShow> getTvShowsDetail(@NonNull String tvId) {
         MutableLiveData<TvShow> tvShowDetail = new MutableLiveData<>();
         remoteDataSource.getTvShowDetail(tvId, new RemoteDataSource.GetTvShowDetailCallback() {
             @Override

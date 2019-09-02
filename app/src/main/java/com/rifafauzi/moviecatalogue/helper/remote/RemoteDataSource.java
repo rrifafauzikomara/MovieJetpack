@@ -8,6 +8,8 @@ import com.rifafauzi.moviecatalogue.model.ResponseMovies;
 import com.rifafauzi.moviecatalogue.model.ResponseTvShow;
 import com.rifafauzi.moviecatalogue.model.TvShow;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -29,11 +31,11 @@ public class RemoteDataSource {
     }
 
     public void getListMovies(GetMoviesCallback getMoviesCallback) {
-        Call<ResponseMovies> call = apiInterface.getAllMovies(Contract.API_KEY, Contract.LANG, Contract.SORT_BY);
+        Call<ResponseMovies> call = apiInterface.getAllMovies(Contract.INSTANCE.getAPI_KEY(), Contract.INSTANCE.getLANG(), Contract.INSTANCE.getSORT_BY());
         call.enqueue(new Callback<ResponseMovies>() {
             @Override
             public void onResponse(@NonNull Call<ResponseMovies> call, @NonNull Response<ResponseMovies> response) {
-                getMoviesCallback.onMoviesLoaded(response.body());
+                getMoviesCallback.onMoviesLoaded(response.body().getMovies());
             }
 
             @Override
@@ -44,7 +46,7 @@ public class RemoteDataSource {
     }
 
     public void getMoviesDetail(String movieId, GetMoviesDetailCallback getMoviesDetailCallback) {
-        Call<Movies> call = apiInterface.getDetailMovie(movieId, Contract.API_KEY, Contract.LANG);
+        Call<Movies> call = apiInterface.getDetailMovie(movieId, Contract.INSTANCE.getAPI_KEY(), Contract.INSTANCE.getLANG());
         call.enqueue(new Callback<Movies>() {
             @Override
             public void onResponse(@NonNull Call<Movies> call, @NonNull Response<Movies> response) {
@@ -59,11 +61,11 @@ public class RemoteDataSource {
     }
 
     public void getListTvShow(GetTvShowCallback getTvShowCallback) {
-        Call<ResponseTvShow> call = apiInterface.getAllTvShow(Contract.API_KEY, Contract.LANG, Contract.SORT_BY);
+        Call<ResponseTvShow> call = apiInterface.getAllTvShow(Contract.INSTANCE.getAPI_KEY(), Contract.INSTANCE.getLANG(), Contract.INSTANCE.getSORT_BY());
         call.enqueue(new Callback<ResponseTvShow>() {
             @Override
             public void onResponse(@NonNull Call<ResponseTvShow> call, @NonNull Response<ResponseTvShow> response) {
-                getTvShowCallback.onTvShowLoaded(response.body());
+                getTvShowCallback.onTvShowLoaded(response.body().getTvShows());
             }
 
             @Override
@@ -74,7 +76,7 @@ public class RemoteDataSource {
     }
 
     public void getTvShowDetail(String tv_id, GetTvShowDetailCallback getTvShowDetailCallback) {
-        Call<TvShow> call = apiInterface.getDetailTvShow(tv_id, Contract.API_KEY, Contract.LANG);
+        Call<TvShow> call = apiInterface.getDetailTvShow(tv_id, Contract.INSTANCE.getAPI_KEY(), Contract.INSTANCE.getLANG());
         call.enqueue(new Callback<TvShow>() {
             @Override
             public void onResponse(@NonNull Call<TvShow> call, @NonNull Response<TvShow> response) {
@@ -89,12 +91,12 @@ public class RemoteDataSource {
     }
 
     public interface GetMoviesCallback {
-        void onMoviesLoaded(ResponseMovies responseMovies);
+        void onMoviesLoaded(List<Movies> responseMovies);
         void onDataNotAvailable(String errorMessage);
     }
 
     public interface GetTvShowCallback {
-        void onTvShowLoaded(ResponseTvShow responseTvShow);
+        void onTvShowLoaded(List<TvShow> responseTvShow);
         void onDataNotAvailable(String errorMessage);
     }
 

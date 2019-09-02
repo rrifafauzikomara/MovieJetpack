@@ -33,14 +33,14 @@ public class DetailMovieActivity extends AppCompatActivity {
     @NonNull
     private MovieViewModel obtainViewModelMovies() {
         // Use a Factory to inject dependencies into the ViewModel
-        ViewModelFactory factory = ViewModelFactory.getInstance();
+        ViewModelFactory factory = ViewModelFactory.Companion.getInstance();
         return ViewModelProviders.of(this, factory).get(MovieViewModel.class);
     }
 
     @NonNull
     private TvShowViewModel obtainViewModelTvShow() {
         // Use a Factory to inject dependencies into the ViewModel
-        ViewModelFactory factory = ViewModelFactory.getInstance();
+        ViewModelFactory factory = ViewModelFactory.Companion.getInstance();
         return ViewModelProviders.of(this, factory).get(TvShowViewModel.class);
     }
 
@@ -75,7 +75,7 @@ public class DetailMovieActivity extends AppCompatActivity {
                     textViewDate.setText(movies.getReleaseDate());
                     textViewDesc.setText(movies.getOverview());
                     Glide.with(getApplicationContext())
-                            .load(Contract.LINK_IMAGE + movies.getPosterPath())
+                            .load(Contract.INSTANCE.getLINK_IMAGE() + movies.getPosterPath())
                             .apply(RequestOptions.placeholderOf(R.drawable.ic_image)
                                     .error(R.drawable.ic_error))
                             .into(imageViewPoster);
@@ -88,7 +88,7 @@ public class DetailMovieActivity extends AppCompatActivity {
                     textViewDesc.setText(tvShow.getOverview());
 
                     Glide.with(getApplicationContext())
-                            .load(Contract.LINK_IMAGE + tvShow.getPosterPath())
+                            .load(Contract.INSTANCE.getLINK_IMAGE() + tvShow.getPosterPath())
                             .apply(RequestOptions.placeholderOf(R.drawable.ic_image)
                                     .error(R.drawable.ic_error))
                             .into(imageViewPoster);
