@@ -33,7 +33,7 @@ public class TvShowFragment extends Fragment {
     @NonNull
     private TvShowViewModel obtainViewModel() {
         // Use a Factory to inject dependencies into the ViewModel
-        ViewModelFactory factory = ViewModelFactory.Companion.getInstance();
+        ViewModelFactory factory = ViewModelFactory.getInstance();
         return ViewModelProviders.of(this, factory).get(TvShowViewModel.class);
     }
 

@@ -34,7 +34,7 @@ public class MovieFragment extends Fragment {
     @NonNull
     private MovieViewModel obtainViewModel() {
         // Use a Factory to inject dependencies into the ViewModel
-        ViewModelFactory factory = ViewModelFactory.Companion.getInstance();
+        ViewModelFactory factory = ViewModelFactory.getInstance();
         return ViewModelProviders.of(this, factory).get(MovieViewModel.class);
     }
 
