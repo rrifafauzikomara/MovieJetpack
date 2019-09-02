@@ -1,11 +1,15 @@
 package com.rifafauzi.moviecatalogue.ui;
 
 import androidx.test.espresso.Espresso;
+import androidx.test.espresso.IdlingRegistry;
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.rule.ActivityTestRule;
 
 import com.rifafauzi.moviecatalogue.R;
+import com.rifafauzi.moviecatalogue.utils.EspressoIdlingResource;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -21,6 +25,16 @@ public class MovieCatalogueTest {
     @Rule
     public ActivityTestRule<HomeActivity> activityRule = new ActivityTestRule<>(HomeActivity.class);
 
+    @Before
+    public void setUp() {
+        IdlingRegistry.getInstance().register(EspressoIdlingResource.getEspressoIdlingResource());
+    }
+
+    @After
+    public void tearDown() {
+        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.getEspressoIdlingResource());
+    }
+
     @Test
     public void toMovieActivityTest() {
         onView(withId(R.id.navigation_movies)).check(matches(isDisplayed()));
@@ -28,7 +42,7 @@ public class MovieCatalogueTest {
         onView(withId(R.id.rv_movies)).check(matches(isDisplayed()));
         onView(withId(R.id.rv_movies)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
         onView(withId(R.id.tgl)).check(matches(isDisplayed()));
-        onView(withId(R.id.tgl)).check(matches(withText("October 3, 2018")));
+        onView(withId(R.id.tgl)).check(matches(withText("2018-09-27")));
         Espresso.pressBack();
     }
 
@@ -39,7 +53,7 @@ public class MovieCatalogueTest {
         onView(withId(R.id.rv_tvShow)).check(matches(isDisplayed()));
         onView(withId(R.id.rv_tvShow)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
         onView(withId(R.id.tgl)).check(matches(isDisplayed()));
-        onView(withId(R.id.tgl)).check(matches(withText("October 10, 2012")));
+        onView(withId(R.id.tgl)).check(matches(withText("2014-10-07")));
         Espresso.pressBack();
     }
 
