@@ -7,6 +7,7 @@ import com.rifafauzi.moviecatalogue.model.Movies;
 import com.rifafauzi.moviecatalogue.model.ResponseMovies;
 import com.rifafauzi.moviecatalogue.model.ResponseTvShow;
 import com.rifafauzi.moviecatalogue.model.TvShow;
+import com.rifafauzi.moviecatalogue.utils.EspressoIdlingResource;
 
 import java.util.List;
 import java.util.Objects;
@@ -32,11 +33,13 @@ public class RemoteDataSource {
     }
 
     public void getListMovies(GetMoviesCallback getMoviesCallback) {
+        EspressoIdlingResource.increment();
         Call<ResponseMovies> call = apiInterface.getAllMovies(Contract.API_KEY, Contract.LANG, Contract.SORT_BY);
         call.enqueue(new Callback<ResponseMovies>() {
             @Override
             public void onResponse(@NonNull Call<ResponseMovies> call, @NonNull Response<ResponseMovies> response) {
                 getMoviesCallback.onMoviesLoaded(Objects.requireNonNull(response.body()).getMovies());
+                EspressoIdlingResource.decrement();
             }
 
             @Override
@@ -47,11 +50,13 @@ public class RemoteDataSource {
     }
 
     public void getMoviesDetail(String movieId, GetMoviesDetailCallback getMoviesDetailCallback) {
+        EspressoIdlingResource.increment();
         Call<Movies> call = apiInterface.getDetailMovie(movieId, Contract.API_KEY, Contract.LANG);
         call.enqueue(new Callback<Movies>() {
             @Override
             public void onResponse(@NonNull Call<Movies> call, @NonNull Response<Movies> response) {
                 getMoviesDetailCallback.onMoviesDetailLoaded(response.body());
+                EspressoIdlingResource.decrement();
             }
 
             @Override
@@ -62,11 +67,13 @@ public class RemoteDataSource {
     }
 
     public void getListTvShow(GetTvShowCallback getTvShowCallback) {
+        EspressoIdlingResource.increment();
         Call<ResponseTvShow> call = apiInterface.getAllTvShow(Contract.API_KEY, Contract.LANG, Contract.SORT_BY);
         call.enqueue(new Callback<ResponseTvShow>() {
             @Override
             public void onResponse(@NonNull Call<ResponseTvShow> call, @NonNull Response<ResponseTvShow> response) {
                 getTvShowCallback.onTvShowLoaded(Objects.requireNonNull(response.body()).getTvShows());
+                EspressoIdlingResource.decrement();
             }
 
             @Override
@@ -77,11 +84,13 @@ public class RemoteDataSource {
     }
 
     public void getTvShowDetail(String tv_id, GetTvShowDetailCallback getTvShowDetailCallback) {
+        EspressoIdlingResource.increment();
         Call<TvShow> call = apiInterface.getDetailTvShow(tv_id, Contract.API_KEY, Contract.LANG);
         call.enqueue(new Callback<TvShow>() {
             @Override
             public void onResponse(@NonNull Call<TvShow> call, @NonNull Response<TvShow> response) {
                 getTvShowDetailCallback.onTvShowDetailLoaded(response.body());
+                EspressoIdlingResource.decrement();
             }
 
             @Override
