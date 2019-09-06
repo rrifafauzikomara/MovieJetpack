@@ -12,7 +12,7 @@ import androidx.fragment.app.FragmentTransaction;
 public class HomeActivity extends AppCompatActivity {
 
     private final String SELECTED_MENU = "selected_menu";
-    BottomNavigationView navView;
+    private BottomNavigationView navView;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = item -> {
         Fragment fragment = null;

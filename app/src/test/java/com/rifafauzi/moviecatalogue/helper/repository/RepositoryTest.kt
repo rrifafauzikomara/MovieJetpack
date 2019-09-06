@@ -57,10 +57,19 @@ class RepositoryTest {
     @Test
     fun getTvShowsDetail() {
         Mockito.doAnswer {
-            val callback = it.arguments[0] as RemoteDataSource.GetTvShowDetailCallback
+            val callback = it.arguments[1] as RemoteDataSource.GetTvShowDetailCallback
             callback.onTvShowDetailLoaded(tvShowsDetail)
             null
-        }.`when`(remoteRepository).getTvShowDetail(Mockito.eq(tvShowId), Mockito.any(RemoteDataSource.GetTvShowDetailCallback::class.java))
+        }.`when`(remoteRepository).getTvShowDetail(
+                Mockito.eq(tvShowId),
+                Mockito.any(RemoteDataSource.GetTvShowDetailCallback::class.java))
+
+        val result = LiveDataTestUtil.getValue(dataRepositoryTest.getTvShowsDetail(tvShowId))
+        Mockito.verify(
+                remoteRepository,
+                Mockito.times(1)).getTvShowDetail(Mockito.eq(tvShowId), Mockito.any(RemoteDataSource.GetTvShowDetailCallback::class.java))
+        Assert.assertEquals(tvShowsDetail.id, result.id)
+
     }
 
     @Test
@@ -80,11 +89,16 @@ class RepositoryTest {
     @Test
     fun getMovieDetail() {
         Mockito.doAnswer {
-            val callback = it.arguments[0] as RemoteDataSource.GetMoviesDetailCallback
+            val callback = it.arguments[1] as RemoteDataSource.GetMoviesDetailCallback
             callback.onMoviesDetailLoaded(movieDetail)
             null
         }.`when`(remoteRepository).getMoviesDetail(Mockito.eq(movieId), Mockito.any(RemoteDataSource.GetMoviesDetailCallback::class.java))
 
+        val result = LiveDataTestUtil.getValue(dataRepositoryTest.getMovieDetail(movieId))
+        Mockito.verify(
+                remoteRepository,
+                Mockito.times(1)).getMoviesDetail(Mockito.eq(movieId), Mockito.any(RemoteDataSource.GetMoviesDetailCallback::class.java))
+        Assert.assertEquals(movieDetail.id, result.id)
     }
 
     @Test
