@@ -1,4 +1,4 @@
-package com.rifafauzi.moviecatalogue.ui;
+package com.rifafauzi.moviecatalogue.ui.detail;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;

@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.DetailMovieActivity">
+    tools:context=".ui.detail.DetailMovieActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar_layout"
@@ -102,7 +102,7 @@
     </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:src="@drawable/ic_play_circle_outline"
+        android:src="@drawable/ic_play_circle"
         android:layout_width="wrap_content"
         android:scaleType="centerCrop"
         android:layout_height="wrap_content"

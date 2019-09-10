@@ -20,6 +20,8 @@ public class HomeActivity extends AppCompatActivity {
             fragment = MovieFragment.newInstance();
         } else if (item.getItemId() == R.id.navigation_tv_show) {
             fragment = TvShowFragment.newInstance();
+        } else  if (item.getItemId() == R.id.navigation_favorite) {
+            fragment = FavoriteFragment.newInstance();
         }
 
         if (fragment != null) {
