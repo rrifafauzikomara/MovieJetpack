@@ -27,7 +27,7 @@ public class MovieFragment extends Fragment {
     private ProgressBar progressBar;
     private MovieAdapter movieAdapter;
 
-    static Fragment newInstance() {
+    public static Fragment newInstance() {
         return new MovieFragment();
     }
 

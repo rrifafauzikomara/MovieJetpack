@@ -1,4 +1,4 @@
-package com.rifafauzi.moviecatalogue.ui;
+package com.rifafauzi.moviecatalogue.ui.favorite;
 
 
 import android.os.Bundle;
@@ -16,8 +16,6 @@ import android.widget.TextView;
 import com.google.android.material.tabs.TabLayout;
 import com.rifafauzi.moviecatalogue.R;
 import com.rifafauzi.moviecatalogue.adapter.ViewPagerAdapter;
-import com.rifafauzi.moviecatalogue.ui.favorite.FavoriteMovieFragment;
-import com.rifafauzi.moviecatalogue.ui.favorite.FavoriteTvShowFragment;
 
 import java.util.Objects;
 
@@ -26,7 +24,7 @@ public class FavoriteFragment extends Fragment {
     private TabLayout tabLayout;
     private ViewPager viewPager;
 
-    static Fragment newInstance() {
+    public static Fragment newInstance() {
         return new FavoriteFragment();
     }
 

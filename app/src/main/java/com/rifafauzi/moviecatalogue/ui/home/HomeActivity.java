@@ -1,9 +1,12 @@
-package com.rifafauzi.moviecatalogue.ui;
+package com.rifafauzi.moviecatalogue.ui.home;
 
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.rifafauzi.moviecatalogue.R;
+import com.rifafauzi.moviecatalogue.ui.MovieFragment;
+import com.rifafauzi.moviecatalogue.ui.TvShowFragment;
+import com.rifafauzi.moviecatalogue.ui.favorite.FavoriteFragment;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;

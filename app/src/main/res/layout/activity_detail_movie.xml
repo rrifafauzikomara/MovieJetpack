@@ -102,7 +102,7 @@
     </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:src="@drawable/ic_play_circle"
+        android:src="@drawable/ic_favorite_border"
         android:layout_width="wrap_content"
         android:scaleType="centerCrop"
         android:layout_height="wrap_content"

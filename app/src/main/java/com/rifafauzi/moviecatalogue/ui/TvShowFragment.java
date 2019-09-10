@@ -26,7 +26,7 @@ public class TvShowFragment extends Fragment {
     private ProgressBar progressBar;
     private TvShowAdapter tvShowAdapter;
 
-    static Fragment newInstance() {
+    public static Fragment newInstance() {
         return new TvShowFragment();
     }
 

@@ -6,6 +6,7 @@ import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.rule.ActivityTestRule;
 
 import com.rifafauzi.moviecatalogue.R;
+import com.rifafauzi.moviecatalogue.ui.home.HomeActivity;
 import com.rifafauzi.moviecatalogue.utils.EspressoIdlingResource;
 
 import org.junit.After;

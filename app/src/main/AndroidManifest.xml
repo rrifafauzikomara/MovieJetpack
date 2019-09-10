@@ -17,7 +17,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".ui.detail.DetailMovieActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".ui.HomeActivity">
+        <activity android:name=".ui.home.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
