@@ -38,10 +38,6 @@ public class MovieViewModelTest {
         movieViewModel = new MovieViewModel(repository);
     }
 
-    @After
-    public void tearDown() {
-    }
-
     @Test
     public void getListMovies() {
         moviesMutableList.setValue(moviesList);

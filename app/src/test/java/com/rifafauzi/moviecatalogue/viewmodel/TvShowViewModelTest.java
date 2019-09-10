@@ -38,10 +38,6 @@ public class TvShowViewModelTest {
         tvShowViewModel = new TvShowViewModel(repository);
     }
 
-    @After
-    public void tearDown() {
-    }
-
     @Test
     public void getListTvShow() {
         tvShowMutableList.setValue(tvShowList);
