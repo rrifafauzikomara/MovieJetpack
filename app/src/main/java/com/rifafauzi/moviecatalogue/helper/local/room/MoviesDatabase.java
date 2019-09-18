@@ -14,14 +14,15 @@ import com.rifafauzi.moviecatalogue.helper.local.entity.TvShowEntity;
         exportSchema = false)
 public abstract class MoviesDatabase extends RoomDatabase {
 
-    private static final Object sLock = new Object();
     private static MoviesDatabase INSTANCE;
+
+    private static final Object sLock = new Object();
 
     public static MoviesDatabase getInstance(Context context) {
         synchronized (sLock) {
             if (INSTANCE == null) {
                 INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                        MoviesDatabase.class, "Movies.db")
+                        MoviesDatabase.class, "movies.db")
                         .build();
             }
             return INSTANCE;

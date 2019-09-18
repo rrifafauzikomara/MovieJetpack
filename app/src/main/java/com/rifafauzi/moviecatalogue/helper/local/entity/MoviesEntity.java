@@ -9,9 +9,8 @@ import androidx.room.PrimaryKey;
 public class MoviesEntity {
 
     @PrimaryKey
-    @NonNull
     @ColumnInfo(name = "moviesId")
-    private String moviesId;
+    private int moviesId;
 
     @ColumnInfo(name = "title")
     private String title;
@@ -28,7 +27,7 @@ public class MoviesEntity {
     @ColumnInfo(name = "imagePath")
     private String imagePath;
 
-    public MoviesEntity(@NonNull String moviesId, String title, String description, String release, boolean favorite, String imagePath) {
+    public MoviesEntity(int moviesId, String title, String description, String release, Boolean favorite, String imagePath) {
         this.moviesId = moviesId;
         this.title = title;
         this.description = description;
@@ -37,12 +36,11 @@ public class MoviesEntity {
         this.imagePath = imagePath;
     }
 
-    @NonNull
-    public String getMoviesId() {
+    public int getMoviesId() {
         return moviesId;
     }
 
-    public void setMoviesId(@NonNull String moviesId) {
+    public void setMoviesId(int moviesId) {
         this.moviesId = moviesId;
     }
 

@@ -9,9 +9,8 @@ import androidx.room.PrimaryKey;
 public class TvShowEntity {
 
     @PrimaryKey
-    @NonNull
     @ColumnInfo(name = "tvShowId")
-    private String tvShowId;
+    private int tvShowId;
 
     @ColumnInfo(name = "title")
     private String title;
@@ -28,7 +27,7 @@ public class TvShowEntity {
     @ColumnInfo(name = "imagePath")
     private String imagePath;
 
-    public TvShowEntity(@NonNull String tvShowId, String title, String description, String release, boolean favorite, String imagePath) {
+    public TvShowEntity(int tvShowId, String title, String description, String release, Boolean favorite, String imagePath) {
         this.tvShowId = tvShowId;
         this.title = title;
         this.description = description;
@@ -37,12 +36,11 @@ public class TvShowEntity {
         this.imagePath = imagePath;
     }
 
-    @NonNull
-    public String getTvShowId() {
+    public int getTvShowId() {
         return tvShowId;
     }
 
-    public void setTvShowId(@NonNull String tvShowId) {
+    public void setTvShowId(int tvShowId) {
         this.tvShowId = tvShowId;
     }
 

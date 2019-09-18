@@ -3,7 +3,6 @@ package com.rifafauzi.moviecatalogue.helper.repository
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.rifafauzi.moviecatalogue.helper.remote.RemoteDataSource
 import com.rifafauzi.moviecatalogue.model.Movies
-import com.rifafauzi.moviecatalogue.model.TvShow
 import com.rifafauzi.moviecatalogue.utils.FakeData
 import com.rifafauzi.moviecatalogue.utils.LiveDataTestUtil
 import org.junit.*

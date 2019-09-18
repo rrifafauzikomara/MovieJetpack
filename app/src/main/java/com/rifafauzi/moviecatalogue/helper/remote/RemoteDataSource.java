@@ -1,16 +1,17 @@
 package com.rifafauzi.moviecatalogue.helper.remote;
 
+import android.os.Handler;
+
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.rifafauzi.moviecatalogue.adapter.Contract;
 import com.rifafauzi.moviecatalogue.model.Movies;
 import com.rifafauzi.moviecatalogue.model.ResponseMovies;
-import com.rifafauzi.moviecatalogue.model.ResponseTvShow;
-import com.rifafauzi.moviecatalogue.model.TvShow;
 import com.rifafauzi.moviecatalogue.utils.EspressoIdlingResource;
 
 import java.util.List;
-import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -20,6 +21,7 @@ public class RemoteDataSource {
 
     private static RemoteDataSource INSTANCE;
     private ApiInterface apiInterface;
+    private final long SERVICE_LATENCY_IN_MILLIS = 2000;
 
     private RemoteDataSource(ApiInterface apiInterface) {
         this.apiInterface = apiInterface;
@@ -32,72 +34,102 @@ public class RemoteDataSource {
         return INSTANCE;
     }
 
-    public void getListMovies(GetMoviesCallback getMoviesCallback) {
+    public LiveData<ApiResponse<List<Movies>>> getListMovies() {
         EspressoIdlingResource.increment();
-        Call<ResponseMovies> call = apiInterface.getAllMovies(Contract.API_KEY, Contract.LANG, Contract.SORT_BY);
-        call.enqueue(new Callback<ResponseMovies>() {
-            @Override
-            public void onResponse(@NonNull Call<ResponseMovies> call, @NonNull Response<ResponseMovies> response) {
-                getMoviesCallback.onMoviesLoaded(Objects.requireNonNull(response.body()).getMovies());
-                EspressoIdlingResource.decrement();
-            }
+        MutableLiveData<ApiResponse<List<Movies>>> resultMovies = new MutableLiveData<>();
 
-            @Override
-            public void onFailure(@NonNull Call<ResponseMovies> call, @NonNull Throwable t) {
-                getMoviesCallback.onDataNotAvailable(t.toString());
-            }
-        });
+        Handler handler = new Handler();
+        handler.postDelayed(() -> {
+            Call<ResponseMovies> call = apiInterface.getAllMovies(Contract.API_KEY, Contract.LANG, Contract.SORT_BY);
+            call.enqueue(new Callback<ResponseMovies>() {
+                @Override
+                public void onResponse(Call<ResponseMovies> call, Response<ResponseMovies> response) {
+                    resultMovies.setValue(ApiResponse.success(response.body().getMovies()));
+                    if (!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow()) {
+                        EspressoIdlingResource.decrement();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseMovies> call, Throwable t) {
+
+                }
+            });
+        }, SERVICE_LATENCY_IN_MILLIS);
+
+        return resultMovies;
+
     }
 
     public void getMoviesDetail(String movieId, GetMoviesDetailCallback getMoviesDetailCallback) {
         EspressoIdlingResource.increment();
-        Call<Movies> call = apiInterface.getDetailMovie(movieId, Contract.API_KEY, Contract.LANG);
-        call.enqueue(new Callback<Movies>() {
-            @Override
-            public void onResponse(@NonNull Call<Movies> call, @NonNull Response<Movies> response) {
-                getMoviesDetailCallback.onMoviesDetailLoaded(response.body());
-                EspressoIdlingResource.decrement();
-            }
+        Handler handler = new Handler();
+        handler.postDelayed(() -> {
+            Call<Movies> call = apiInterface.getDetailMovie(movieId, Contract.API_KEY, Contract.LANG);
+            call.enqueue(new Callback<Movies>() {
+                @Override
+                public void onResponse(@NonNull Call<Movies> call, @NonNull Response<Movies> response) {
+                    getMoviesDetailCallback.onMoviesDetailLoaded(response.body());
+                    if (!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow()) {
+                        EspressoIdlingResource.decrement();
+                    }
+                }
 
-            @Override
-            public void onFailure(@NonNull Call<Movies> call, @NonNull Throwable t) {
-                getMoviesDetailCallback.onDataNotAvailable(t.toString());
-            }
-        });
+                @Override
+                public void onFailure(@NonNull Call<Movies> call, @NonNull Throwable t) {
+                    getMoviesDetailCallback.onDataNotAvailable(t.toString());
+                }
+            });
+        }, SERVICE_LATENCY_IN_MILLIS);
     }
 
-    public void getListTvShow(GetTvShowCallback getTvShowCallback) {
+    public LiveData<ApiResponse<List<Movies>>> getListTvShow() {
         EspressoIdlingResource.increment();
-        Call<ResponseTvShow> call = apiInterface.getAllTvShow(Contract.API_KEY, Contract.LANG, Contract.SORT_BY);
-        call.enqueue(new Callback<ResponseTvShow>() {
-            @Override
-            public void onResponse(@NonNull Call<ResponseTvShow> call, @NonNull Response<ResponseTvShow> response) {
-                getTvShowCallback.onTvShowLoaded(Objects.requireNonNull(response.body()).getTvShows());
-                EspressoIdlingResource.decrement();
-            }
+        MutableLiveData<ApiResponse<List<Movies>>> resultTvShow = new MutableLiveData<>();
 
-            @Override
-            public void onFailure(@NonNull Call<ResponseTvShow> call, @NonNull Throwable t) {
-                getTvShowCallback.onDataNotAvailable(t.toString());
-            }
-        });
+        Handler handler = new Handler();
+        handler.postDelayed(() -> {
+            Call<ResponseMovies> call = apiInterface.getAllTvShow(Contract.API_KEY, Contract.LANG, Contract.SORT_BY);
+            call.enqueue(new Callback<ResponseMovies>() {
+                @Override
+                public void onResponse(Call<ResponseMovies> call, Response<ResponseMovies> response) {
+                    resultTvShow.setValue(ApiResponse.success(response.body().getMovies()));
+                    if (!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow()) {
+                        EspressoIdlingResource.decrement();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseMovies> call, Throwable t) {
+
+                }
+            });
+        }, SERVICE_LATENCY_IN_MILLIS);
+
+        return resultTvShow;
+
     }
 
     public void getTvShowDetail(String tv_id, GetTvShowDetailCallback getTvShowDetailCallback) {
         EspressoIdlingResource.increment();
-        Call<TvShow> call = apiInterface.getDetailTvShow(tv_id, Contract.API_KEY, Contract.LANG);
-        call.enqueue(new Callback<TvShow>() {
-            @Override
-            public void onResponse(@NonNull Call<TvShow> call, @NonNull Response<TvShow> response) {
-                getTvShowDetailCallback.onTvShowDetailLoaded(response.body());
-                EspressoIdlingResource.decrement();
-            }
+        Handler handler = new Handler();
+        handler.postDelayed(() -> {
+            Call<Movies> call = apiInterface.getDetailTvShow(tv_id, Contract.API_KEY, Contract.LANG);
+            call.enqueue(new Callback<Movies>() {
+                @Override
+                public void onResponse(@NonNull Call<Movies> call, @NonNull Response<Movies> response) {
+                    getTvShowDetailCallback.onTvShowDetailLoaded(response.body());
+                    if (!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow()) {
+                        EspressoIdlingResource.decrement();
+                    }
+                }
 
-            @Override
-            public void onFailure(@NonNull Call<TvShow> call, @NonNull Throwable t) {
-                getTvShowDetailCallback.onDataNotAvailable(t.toString());
-            }
-        });
+                @Override
+                public void onFailure(@NonNull Call<Movies> call, @NonNull Throwable t) {
+                    getTvShowDetailCallback.onDataNotAvailable(t.toString());
+                }
+            });
+        }, SERVICE_LATENCY_IN_MILLIS);
     }
 
     public interface GetMoviesCallback {
@@ -106,7 +138,7 @@ public class RemoteDataSource {
     }
 
     public interface GetTvShowCallback {
-        void onTvShowLoaded(List<TvShow> responseTvShow);
+        void onTvShowLoaded(List<Movies> responseTvShow);
         void onDataNotAvailable(String errorMessage);
     }
 
@@ -116,7 +148,7 @@ public class RemoteDataSource {
     }
 
     public interface GetTvShowDetailCallback {
-        void onTvShowDetailLoaded(TvShow responseTvShow);
+        void onTvShowDetailLoaded(Movies responseTvShow);
         void onDataNotAvailable(String errorMessage);
     }
 }

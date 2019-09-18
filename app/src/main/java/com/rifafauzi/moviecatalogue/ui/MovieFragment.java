@@ -59,7 +59,7 @@ public class MovieFragment extends Fragment {
             MovieViewModel movieViewModel = obtainViewModel();
             movieAdapter = new MovieAdapter(getActivity());
 
-            movieViewModel.getListMovies().observe(this, moviesList -> {
+            movieViewModel.movies.observe(this, moviesList -> {
                 progressBar.setVisibility(View.GONE);
                 movieAdapter.setListMovies(moviesList);
                 movieAdapter.notifyDataSetChanged();

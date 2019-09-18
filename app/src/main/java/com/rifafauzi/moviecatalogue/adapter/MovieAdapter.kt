@@ -26,12 +26,12 @@ class MovieAdapter(private val activity: Activity) : RecyclerView.Adapter<MovieA
         this.movies.addAll(listMovies)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieAdapter.MovieViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false)
         return MovieViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: MovieAdapter.MovieViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         val data = movies[position]
         holder.textViewTitle.text = data.title
         holder.textViewDesc.text = data.overview
