@@ -162,9 +162,9 @@ public class Repository implements DataSource {
 
                     tvShowEntities.add(new TvShowEntity(
                             movies.getId(),
-                            movies.getTitle(),
+                            movies.getName(),
                             movies.getOverview(),
-                            movies.getReleaseDate(),
+                            movies.getFirstAirDate(),
                             null,
                             movies.getPosterPath()));
                 }

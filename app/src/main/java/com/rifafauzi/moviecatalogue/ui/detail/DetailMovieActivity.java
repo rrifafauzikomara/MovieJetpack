@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -30,19 +31,19 @@ public class DetailMovieActivity extends AppCompatActivity {
     private ImageView imageViewPoster;
     private ProgressBar progressBar;
 
-//    @NonNull
-//    private MovieViewModel obtainViewModelMovies() {
-//        // Use a Factory to inject dependencies into the ViewModel
-//        ViewModelFactory factory = ViewModelFactory.getInstance();
-//        return ViewModelProviders.of(this, factory).get(MovieViewModel.class);
-//    }
-//
-//    @NonNull
-//    private TvShowViewModel obtainViewModelTvShow() {
-//        // Use a Factory to inject dependencies into the ViewModel
-//        ViewModelFactory factory = ViewModelFactory.getInstance();
-//        return ViewModelProviders.of(this, factory).get(TvShowViewModel.class);
-//    }
+    @NonNull
+    private MovieViewModel obtainViewModelMovies(AppCompatActivity activity) {
+        // Use a Factory to inject dependencies into the ViewModel
+        ViewModelFactory factory = ViewModelFactory.getInstance(activity.getApplication());
+        return ViewModelProviders.of(activity, factory).get(MovieViewModel.class);
+    }
+
+    @NonNull
+    private TvShowViewModel obtainViewModelTvShow(AppCompatActivity activity) {
+        // Use a Factory to inject dependencies into the ViewModel
+        ViewModelFactory factory = ViewModelFactory.getInstance(activity.getApplication());
+        return ViewModelProviders.of(activity, factory).get(TvShowViewModel.class);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,47 +55,84 @@ public class DetailMovieActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-//        collapsingToolbarLayout = findViewById(R.id.collapsingDetail);
-//        textViewDate = findViewById(R.id.tgl);
-//        textViewDesc = findViewById(R.id.desc);
-//        imageViewPoster = findViewById(R.id.poster);
-//        progressBar = findViewById(R.id.progress_bar_detail);
-//
-//        MovieViewModel movieViewModel = obtainViewModelMovies();
-//        TvShowViewModel tvShowViewModel = obtainViewModelTvShow();
-//
-//        Bundle extras = getIntent().getExtras();
-//        if (extras != null) {
-//            String movieId = extras.getString(EXTRA_MOVIE);
-//            String tvShowId = extras.getString(EXTRA_TvSHOW);
-//            progressBar.setVisibility(View.VISIBLE);
-//            if (movieId != null) {
-//                movieViewModel.getDetailMovie(movieId).observe(this, movies -> {
-//                    progressBar.setVisibility(View.GONE);
-//                    collapsingToolbarLayout.setTitle(movies.getTitle());
-//                    textViewDate.setText(movies.getReleaseDate());
-//                    textViewDesc.setText(movies.getOverview());
-//                    Glide.with(getApplicationContext())
-//                            .load(Contract.LINK_IMAGE + movies.getPosterPath())
-//                            .apply(RequestOptions.placeholderOf(R.drawable.ic_image)
-//                                    .error(R.drawable.ic_error))
-//                            .into(imageViewPoster);
-//                });
-//            } else if (tvShowId != null) {
-//                tvShowViewModel.getDetailTvShow(tvShowId).observe(this, tvShow -> {
-//                    progressBar.setVisibility(View.GONE);
-//                    collapsingToolbarLayout.setTitle(tvShow.getName());
-//                    textViewDate.setText(tvShow.getReleaseDate());
-//                    textViewDesc.setText(tvShow.getOverview());
-//
-//                    Glide.with(getApplicationContext())
-//                            .load(Contract.LINK_IMAGE + tvShow.getPosterPath())
-//                            .apply(RequestOptions.placeholderOf(R.drawable.ic_image)
-//                                    .error(R.drawable.ic_error))
-//                            .into(imageViewPoster);
-//                });
-//            }
-//        }
+        collapsingToolbarLayout = findViewById(R.id.collapsingDetail);
+        textViewDate = findViewById(R.id.tgl);
+        textViewDesc = findViewById(R.id.desc);
+        imageViewPoster = findViewById(R.id.poster);
+        progressBar = findViewById(R.id.progress_bar_detail);
+
+        MovieViewModel movieViewModel = obtainViewModelMovies(this);
+        TvShowViewModel tvShowViewModel = obtainViewModelTvShow(this);
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            String movieId = extras.getString(EXTRA_MOVIE);
+            String tvShowId = extras.getString(EXTRA_TvSHOW);
+            progressBar.setVisibility(View.VISIBLE);
+            if (movieId != null) {
+                movieViewModel.setMovieId(Integer.parseInt(movieId));
+                movieViewModel.detailMovies.observe(this, movies -> {
+                    if (movies != null) {
+
+                        switch (movies.status) {
+                            case LOADING:
+                                progressBar.setVisibility(View.VISIBLE);
+                                break;
+                            case SUCCESS:
+                                if (movies.data != null) {
+                                    progressBar.setVisibility(View.GONE);
+                                    progressBar.setVisibility(View.GONE);
+                                    collapsingToolbarLayout.setTitle(movies.data.getTitle());
+                                    textViewDate.setText(movies.data.getReleaseDate());
+                                    textViewDesc.setText(movies.data.getOverview());
+                                    Glide.with(getApplicationContext())
+                                            .load(Contract.LINK_IMAGE + movies.data.getPosterPath())
+                                            .apply(RequestOptions.placeholderOf(R.drawable.ic_image)
+                                                    .error(R.drawable.ic_error))
+                                            .into(imageViewPoster);
+                                }
+                                break;
+                            case ERROR:
+                                progressBar.setVisibility(View.GONE);
+                                Toast.makeText(getApplicationContext(), "Terjadi kesalahan", Toast.LENGTH_SHORT).show();
+                                break;
+                        }
+
+                    }
+                });
+            } else if (tvShowId != null) {
+                tvShowViewModel.setTvShowId(Integer.parseInt(tvShowId));
+                tvShowViewModel.detailTvShow.observe(this, tvShow -> {
+                    if (tvShow != null) {
+
+                        switch (tvShow.status) {
+                            case LOADING:
+                                progressBar.setVisibility(View.VISIBLE);
+                                break;
+                            case SUCCESS:
+                                if (tvShow.data != null) {
+                                    progressBar.setVisibility(View.GONE);
+                                    collapsingToolbarLayout.setTitle(tvShow.data.getName());
+                                    textViewDate.setText(tvShow.data.getFirstAirDate());
+                                    textViewDesc.setText(tvShow.data.getOverview());
+
+                                    Glide.with(getApplicationContext())
+                                            .load(Contract.LINK_IMAGE + tvShow.data.getPosterPath())
+                                            .apply(RequestOptions.placeholderOf(R.drawable.ic_image)
+                                                    .error(R.drawable.ic_error))
+                                            .into(imageViewPoster);
+                                }
+                                break;
+                            case ERROR:
+                                progressBar.setVisibility(View.GONE);
+                                Toast.makeText(getApplicationContext(), "Terjadi kesalahan", Toast.LENGTH_SHORT).show();
+                                break;
+                        }
+
+                    }
+                });
+            }
+        }
 
     }
 
