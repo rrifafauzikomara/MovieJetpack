@@ -70,7 +70,7 @@ public class RepositoryTest {
     @Test
     public void getDetailMovies() {
         MutableLiveData<MoviesEntity> dummyEntity = new MutableLiveData<>();
-        dummyEntity.setValue(FakeData.getMovieDetail());
+        dummyEntity.setValue(FakeData.getMovieDetail(FakeData.generateDummyLocalMovies().get(0), false));
 
         when(local.getDetailMovies(moviesId)).thenReturn(dummyEntity);
 
@@ -101,7 +101,7 @@ public class RepositoryTest {
     @Test
     public void getDetailTvShow() {
         MutableLiveData<TvShowEntity> dummyEntity = new MutableLiveData<>();
-        dummyEntity.setValue(FakeData.getTvShowsDetail());
+        dummyEntity.setValue(FakeData.getTvShowsDetail(FakeData.generateDummyLocalTvShow().get(0), false));
 
         when(local.getDetailTvShow(tvShowId)).thenReturn(dummyEntity);
 

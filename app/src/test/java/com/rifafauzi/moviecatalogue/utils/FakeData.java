@@ -38,8 +38,8 @@ public class FakeData {
                 "2019-07-12",
                 "2019-07-12",
                 420818,
-                "The Lion King",
-                "The Lion King"));
+                "Fast & Furious Presents: Hobbs & Shaw",
+                "Fast & Furious Presents: Hobbs & Shaw"));
         movies.add(new Movies(
                 "/rjbNpRMoVvqHmhmksbokcyCr7wn.jpg",
                 "Peter Parker and his friends go on a summer trip to Europe. However, they will hardly be able to rest - Peter will have to agree to help Nick Fury uncover the mystery of creatures that cause natural disasters and destruction throughout the continent.",
@@ -52,15 +52,11 @@ public class FakeData {
         return movies;
     }
 
-    public static MoviesEntity getMovieDetail() {
-        return new MoviesEntity(
-                420818,
-                "The Lion King",
-                "Simba idolises his father, King Mufasa, and takes to heart his own royal destiny. But not everyone in the kingdom celebrates the new cub's arrival. Scar, Mufasa's brother—and former heir to the throne—has plans of his own. The battle for Pride Rock is ravaged with betrayal, tragedy and drama, ultimately resulting in Simba's exile. With help from a curious pair of newfound friends, Simba will have to figure out how to grow up and take back what is rightfully his.",
-                "2019-07-12",
-                null,
-                "/dzBtMocZuJbjLOXvrl4zGYigDzh.jpg"
-        );
+    public static MoviesEntity getMovieDetail(MoviesEntity moviesEntity, boolean bookmarked) {
+        MoviesEntity movies;
+        movies = moviesEntity;
+        movies.setFavorite(bookmarked);
+        return movies;
     }
 
     public static List<TvShowEntity> generateDummyLocalTvShow() {
@@ -107,14 +103,10 @@ public class FakeData {
         return tvShows;
     }
 
-    public static TvShowEntity getTvShowsDetail() {
-        return new TvShowEntity(
-                60735,
-                "The Flash",
-                "After a particle accelerator causes a freak storm, CSI Investigator Barry Allen is struck by lightning and falls into a coma. Months later he awakens with the power of super speed, granting him the ability to move through Central City like an unseen guardian angel. Though initially excited by his newfound powers, Barry is shocked to discover he is not the only \\\"meta-human\\\" who was created in the wake of the accelerator explosion -- and not everyone is using their new powers for good. Barry partners with S.T.A.R. Labs and dedicates his life to protect the innocent. For now, only a few close friends and associates know that Barry is literally the fastest man alive, but it won't be long before the world learns what Barry Allen has become...The Flash.",
-                "2014-10-07",
-                null,
-                "/fki3kBlwJzFp8QohL43g9ReV455.jpg"
-        );
+    public static TvShowEntity getTvShowsDetail(TvShowEntity tvShowEntity, boolean bookmarked) {
+        TvShowEntity tvShow;
+        tvShow = tvShowEntity;
+        tvShow.setFavorite(bookmarked);
+        return tvShow;
     }
 }

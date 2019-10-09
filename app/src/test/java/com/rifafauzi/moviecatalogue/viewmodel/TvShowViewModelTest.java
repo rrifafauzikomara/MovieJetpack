@@ -1,59 +1,94 @@
-//package com.rifafauzi.moviecatalogue.viewmodel;
-//
-//import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
-//import androidx.lifecycle.MutableLiveData;
-//import androidx.lifecycle.Observer;
-//
-//import com.rifafauzi.moviecatalogue.helper.repository.Repository;
-//import com.rifafauzi.moviecatalogue.model.TvShow;
-//import com.rifafauzi.moviecatalogue.utils.FakeData;
-//
-//import org.junit.After;
-//import org.junit.Before;
-//import org.junit.Rule;
-//import org.junit.Test;
-//
-//import java.util.List;
-//
-//import static org.mockito.Mockito.mock;
-//import static org.mockito.Mockito.verify;
-//import static org.mockito.Mockito.when;
-//
-//public class TvShowViewModelTest {
-//
-//    @Rule
-//    public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
-//
-//    private TvShowViewModel tvShowViewModel;
-//    private Repository repository = mock(Repository.class);
-//    private List<TvShow> tvShowList = FakeData.generateDummyTvShow();
-//    private MutableLiveData<List<TvShow>> tvShowMutableList = new MutableLiveData<>();
-//
-//    private TvShow tvShowDetail = FakeData.getTvShowsDetail();
-//    private String tvShowId = String.valueOf(tvShowDetail.getId());
-//    private MutableLiveData<TvShow> tvShowMutableDetail = new MutableLiveData<>();
-//
-//    @Before
-//    public void setUp() {
-//        tvShowViewModel = new TvShowViewModel(repository);
-//    }
-//
-//    @Test
-//    public void getListTvShow() {
-//        tvShowMutableList.setValue(tvShowList);
-//        when(repository.getTvShowsList()).thenReturn(tvShowMutableList);
-//        Observer<List<TvShow>> observer = mock(Observer.class);
-//        tvShowViewModel.getListTvShow().observeForever(observer);
-//        verify(observer).onChanged(tvShowList);
-//    }
-//
-//    @Test
-//    public void getDetailTvShow() {
-//        tvShowMutableDetail.setValue(tvShowDetail);
-//        when(repository.getTvShowsDetail(tvShowId)).thenReturn(tvShowMutableDetail);
-//        Observer<TvShow> observer = mock(Observer.class);
-//        tvShowViewModel.getDetailTvShow(tvShowId).observeForever(observer);
-//        verify(observer).onChanged(tvShowDetail);
-//    }
-//
-//}
+package com.rifafauzi.moviecatalogue.viewmodel;
+
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
+import androidx.paging.PagedList;
+
+import com.rifafauzi.moviecatalogue.helper.local.entity.MoviesEntity;
+import com.rifafauzi.moviecatalogue.helper.local.entity.TvShowEntity;
+import com.rifafauzi.moviecatalogue.helper.repository.Repository;
+import com.rifafauzi.moviecatalogue.helper.vo.Resource;
+import com.rifafauzi.moviecatalogue.utils.FakeData;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+
+import java.util.List;
+
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+public class TvShowViewModelTest {
+
+    @Rule
+    public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
+
+    private TvShowViewModel viewModel;
+    private Repository repository = mock(Repository.class);
+    private String USERNAME = "Dicoding";
+    private TvShowEntity dummyTvShow = FakeData.generateDummyLocalTvShow().get(0);
+    private int tvShowId = dummyTvShow.getId();
+
+    @Before
+    public void setUp() {
+        viewModel = new TvShowViewModel(repository);
+        viewModel.setTvShowId(tvShowId);
+        viewModel.setFavorite();
+    }
+
+    @After
+    public void tearDown() {
+    }
+
+    @Test
+    public void getListTvShow() {
+        Resource<List<TvShowEntity>> resource = Resource.success(FakeData.generateDummyLocalTvShow());
+        MutableLiveData<Resource<List<TvShowEntity>>> dummyCourses = new MutableLiveData<>();
+        dummyCourses.setValue(resource);
+
+        when(repository.getAllTvShow()).thenReturn(dummyCourses);
+
+        Observer<Resource<List<TvShowEntity>>> observer = mock(Observer.class);
+
+        viewModel.setUsername(USERNAME);
+
+        viewModel.tvShow.observeForever(observer);
+
+        verify(observer).onChanged(resource);
+    }
+
+    @Test
+    public void getDetailTvShow() {
+        Resource<TvShowEntity> resource = Resource.success(FakeData.getTvShowsDetail(dummyTvShow, true));
+        MutableLiveData<Resource<TvShowEntity>> courseEntities = new MutableLiveData<>();
+        courseEntities.setValue(resource);
+
+        when(repository.getDetailTvShow(tvShowId)).thenReturn(courseEntities);
+
+        Observer<Resource<TvShowEntity>> observer = mock(Observer.class);
+        viewModel.detailTvShow.observeForever(observer);
+
+        verify(observer).onChanged(resource);
+    }
+
+    @Test
+    public void getFavorite() {
+        MutableLiveData<Resource<PagedList<TvShowEntity>>> dummyCourse = new MutableLiveData<>();
+        PagedList<TvShowEntity> pagedList = mock(PagedList.class);
+
+        dummyCourse.setValue(Resource.success(pagedList));
+
+        when(repository.getFavoriteTvShowPaged()).thenReturn(dummyCourse);
+
+        Observer<Resource<PagedList<TvShowEntity>>> observer = mock(Observer.class);
+
+        viewModel.getFavorite().observeForever(observer);
+
+        verify(observer).onChanged(Resource.success(pagedList));
+    }
+}
