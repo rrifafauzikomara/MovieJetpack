@@ -58,4 +58,12 @@ public class MovieCatalogueTest {
         Espresso.pressBack();
     }
 
+    @Test
+    public void toMoviesFavorite() {
+        onView(withId(R.id.navigation_favorite)).check(matches(isDisplayed()));
+        onView(withId(R.id.navigation_favorite)).perform(click());
+        onView(withId(R.id.rv_movies_favorite)).check(matches(isDisplayed()));
+        onView(withId(R.id.rv_movies_favorite)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+    }
+
 }

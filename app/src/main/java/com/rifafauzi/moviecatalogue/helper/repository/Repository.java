@@ -116,7 +116,7 @@ public class Repository implements DataSource {
 
             @Override
             protected LiveData<PagedList<MoviesEntity>> loadFromDB() {
-                return new LivePagedListBuilder<>(localDataSource.getFavoriteMoviesAsPaged(),20).build();
+                return new LivePagedListBuilder<>(localDataSource.getFavoriteMoviesAsPaged(),10).build();
             }
 
             @Override
@@ -212,7 +212,7 @@ public class Repository implements DataSource {
         return new NetworkBoundResource<PagedList<TvShowEntity>, List<Movies>>(appExecutors) {
             @Override
             protected LiveData<PagedList<TvShowEntity>> loadFromDB() {
-                return new LivePagedListBuilder<>(localDataSource.getFavoriteTvShowAsPaged(),20).build();
+                return new LivePagedListBuilder<>(localDataSource.getFavoriteTvShowAsPaged(),10).build();
             }
 
             @Override
