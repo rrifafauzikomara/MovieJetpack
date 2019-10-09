@@ -1,71 +1,79 @@
 package com.rifafauzi.moviecatalogue.helper.local.entity;
 
-import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+
+import com.google.gson.annotations.SerializedName;
 
 @Entity(tableName = "tvshow")
 public class TvShowEntity {
 
     @PrimaryKey
-    @ColumnInfo(name = "tvShowId")
-    private int tvShowId;
+    @ColumnInfo(name = "id")
+    @SerializedName("id")
+    private int id;
 
-    @ColumnInfo(name = "title")
-    private String title;
+    @ColumnInfo(name = "name")
+    @SerializedName("name")
+    private String name;
 
-    @ColumnInfo(name = "description")
-    private String description;
+    @ColumnInfo(name = "overview")
+    @SerializedName("overview")
+    private String overview;
 
-    @ColumnInfo(name = "release")
-    private String release;
+    @ColumnInfo(name = "first_air_date")
+    @SerializedName("first_air_date")
+    private String firstAirDate;
 
     @ColumnInfo(name = "favorite")
     private boolean favorite = false;
 
-    @ColumnInfo(name = "imagePath")
-    private String imagePath;
+    @ColumnInfo(name = "poster_path")
+    @SerializedName("poster_path")
+    private String posterPath;
 
-    public TvShowEntity(int tvShowId, String title, String description, String release, Boolean favorite, String imagePath) {
-        this.tvShowId = tvShowId;
-        this.title = title;
-        this.description = description;
-        this.release = release;
-        this.favorite = favorite;
-        this.imagePath = imagePath;
+    public TvShowEntity(int id, String name, String overview, String firstAirDate, Boolean favorite, String posterPath) {
+        this.id = id;
+        this.name = name;
+        this.overview = overview;
+        this.firstAirDate = firstAirDate;
+        if (favorite != null) {
+            this.favorite = favorite;
+        }
+        this.posterPath = posterPath;
     }
 
-    public int getTvShowId() {
-        return tvShowId;
+    public int getId() {
+        return id;
     }
 
-    public void setTvShowId(int tvShowId) {
-        this.tvShowId = tvShowId;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public String getOverview() {
+        return overview;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setOverview(String overview) {
+        this.overview = overview;
     }
 
-    public String getRelease() {
-        return release;
+    public String getFirstAirDate() {
+        return firstAirDate;
     }
 
-    public void setRelease(String release) {
-        this.release = release;
+    public void setFirstAirDate(String firstAirDate) {
+        this.firstAirDate = firstAirDate;
     }
 
     public boolean isFavorite() {
@@ -76,11 +84,11 @@ public class TvShowEntity {
         this.favorite = favorite;
     }
 
-    public String getImagePath() {
-        return imagePath;
+    public String getPosterPath() {
+        return posterPath;
     }
 
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
+    public void setPosterPath(String posterPath) {
+        this.posterPath = posterPath;
     }
 }

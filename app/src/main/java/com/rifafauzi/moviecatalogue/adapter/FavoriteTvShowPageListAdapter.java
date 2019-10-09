@@ -33,7 +33,7 @@ public class FavoriteTvShowPageListAdapter extends PagedListAdapter<TvShowEntity
             new DiffUtil.ItemCallback<TvShowEntity>() {
                 @Override
                 public boolean areItemsTheSame(TvShowEntity oldTvShowEntity, TvShowEntity newTvShowEntity) {
-                    return oldTvShowEntity.getTitle().equals(newTvShowEntity.getTitle());
+                    return oldTvShowEntity.getName().equals(newTvShowEntity.getName());
                 }
 
                 @SuppressLint("DiffUtilEquals")
@@ -54,17 +54,17 @@ public class FavoriteTvShowPageListAdapter extends PagedListAdapter<TvShowEntity
     public void onBindViewHolder(@NonNull FavoriteTvShowPageListAdapter.TvShowViewHolder holder, int position) {
         TvShowEntity data = getItem(position);
         if (data != null) {
-            holder.textViewTitle.setText(data.getTitle());
-            holder.textViewDesc.setText(data.getDescription());
-            holder.textViewDate.setText(data.getRelease());
+            holder.textViewTitle.setText(data.getName());
+            holder.textViewDesc.setText(data.getOverview());
+            holder.textViewDate.setText(data.getFirstAirDate());
             Glide.with(holder.itemView.getContext())
-                    .load(Contract.LINK_IMAGE + data.getImagePath())
+                    .load(Contract.LINK_IMAGE + data.getPosterPath())
                     .apply(RequestOptions.placeholderOf(R.drawable.img_default_bg)
                             .error(R.drawable.ic_error))
                     .into(holder.imageViewPoster);
             holder.itemView.setOnClickListener(v -> {
                 Intent intent = new Intent(activity, DetailMovieActivity.class);
-                intent.putExtra(DetailMovieActivity.EXTRA_MOVIE, data.getTvShowId());
+                intent.putExtra(DetailMovieActivity.EXTRA_MOVIE, data.getId());
                 activity.startActivity(intent);
             });
         }

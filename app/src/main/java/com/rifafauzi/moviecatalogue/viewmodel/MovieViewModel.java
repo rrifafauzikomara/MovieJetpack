@@ -27,12 +27,12 @@ public class MovieViewModel extends ViewModel {
     public LiveData<Resource<List<MoviesEntity>>> movies = Transformations.switchMap(mLogin,
             data -> repository.getAllMovies());
 
+    public LiveData<Resource<MoviesEntity>> detailMovies = Transformations.switchMap(movieId,
+            movieId -> repository.getDetailMovies(movieId));
+
     public void setUsername(String username) {
         mLogin.setValue(username);
     }
-
-    public LiveData<Resource<MoviesEntity>> detailMovies = Transformations.switchMap(movieId,
-            movieId -> repository.getDetailMovies(movieId));
 
     public void setMovieId(Integer movieId) {
         this.movieId.setValue(movieId);

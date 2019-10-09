@@ -12,15 +12,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.rifafauzi.moviecatalogue.R
+import com.rifafauzi.moviecatalogue.helper.local.entity.MoviesEntity
 import com.rifafauzi.moviecatalogue.model.Movies
 import com.rifafauzi.moviecatalogue.ui.detail.DetailMovieActivity
 
 import java.util.ArrayList
 
 class MovieAdapter(private val activity: Activity) : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
-    private val movies = ArrayList<Movies>()
+    private val movies = ArrayList<MoviesEntity>()
 
-    fun setListMovies(listMovies: List<Movies>?) {
+    fun setListMovies(listMovies: List<MoviesEntity>?) {
         if (listMovies == null) return
         this.movies.clear()
         this.movies.addAll(listMovies)

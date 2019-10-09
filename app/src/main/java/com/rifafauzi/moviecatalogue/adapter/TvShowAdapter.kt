@@ -12,15 +12,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.rifafauzi.moviecatalogue.R
+import com.rifafauzi.moviecatalogue.helper.local.entity.TvShowEntity
 import com.rifafauzi.moviecatalogue.model.Movies
 import com.rifafauzi.moviecatalogue.ui.detail.DetailMovieActivity
 
 import java.util.ArrayList
 
 class TvShowAdapter(private val activity: Activity) : RecyclerView.Adapter<TvShowAdapter.TvShowViewHolder>() {
-    private val tvShows = ArrayList<Movies>()
+    private val tvShows = ArrayList<TvShowEntity>()
 
-    fun setListTvShow(listTvShow: List<Movies>?) {
+    fun setListTvShow(listTvShow: List<TvShowEntity>?) {
         if (listTvShow == null) return
         this.tvShows.clear()
         this.tvShows.addAll(listTvShow)

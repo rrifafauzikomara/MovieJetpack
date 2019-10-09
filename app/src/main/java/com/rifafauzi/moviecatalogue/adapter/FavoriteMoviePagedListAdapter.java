@@ -55,16 +55,16 @@ public class FavoriteMoviePagedListAdapter extends PagedListAdapter<MoviesEntity
         MoviesEntity data = getItem(position);
         if (data != null) {
             holder.textViewTitle.setText(data.getTitle());
-            holder.textViewDesc.setText(data.getDescription());
-            holder.textViewDate.setText(data.getRelease());
+            holder.textViewDesc.setText(data.getOverview());
+            holder.textViewDate.setText(data.getReleaseDate());
             Glide.with(holder.itemView.getContext())
-                    .load(Contract.LINK_IMAGE + data.getImagePath())
+                    .load(Contract.LINK_IMAGE + data.getPosterPath())
                     .apply(RequestOptions.placeholderOf(R.drawable.img_default_bg)
                             .error(R.drawable.ic_error))
                     .into(holder.imageViewPoster);
             holder.itemView.setOnClickListener(v -> {
                 Intent intent = new Intent(activity, DetailMovieActivity.class);
-                intent.putExtra(DetailMovieActivity.EXTRA_MOVIE, data.getMoviesId());
+                intent.putExtra(DetailMovieActivity.EXTRA_MOVIE, data.getId());
                 activity.startActivity(intent);
             });
         }

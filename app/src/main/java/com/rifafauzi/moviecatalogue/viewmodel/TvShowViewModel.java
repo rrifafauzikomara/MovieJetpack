@@ -24,10 +24,10 @@ public class TvShowViewModel extends ViewModel {
         this.repository = repository;
     }
 
-    LiveData<Resource<List<TvShowEntity>>> tvShow = Transformations.switchMap(mLogin,
+    public LiveData<Resource<List<TvShowEntity>>> tvShow = Transformations.switchMap(mLogin,
             data -> repository.getAllTvShow());
 
-    void setUsername(String username) {
+    public void setUsername(String username) {
         mLogin.setValue(username);
     }
 

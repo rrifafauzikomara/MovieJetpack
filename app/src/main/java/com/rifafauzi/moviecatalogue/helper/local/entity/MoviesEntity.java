@@ -1,47 +1,55 @@
 package com.rifafauzi.moviecatalogue.helper.local.entity;
 
-import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+
+import com.google.gson.annotations.SerializedName;
 
 @Entity(tableName = "movies")
 public class MoviesEntity {
 
     @PrimaryKey
-    @ColumnInfo(name = "moviesId")
-    private int moviesId;
+    @ColumnInfo(name = "id")
+    @SerializedName("id")
+    private int id;
 
     @ColumnInfo(name = "title")
+    @SerializedName("title")
     private String title;
 
-    @ColumnInfo(name = "description")
-    private String description;
+    @ColumnInfo(name = "overview")
+    @SerializedName("overview")
+    private String overview;
 
-    @ColumnInfo(name = "release")
-    private String release;
+    @ColumnInfo(name = "release_date")
+    @SerializedName("release_date")
+    private String releaseDate;
 
     @ColumnInfo(name = "favorite")
     private boolean favorite = false;
 
-    @ColumnInfo(name = "imagePath")
-    private String imagePath;
+    @ColumnInfo(name = "poster_path")
+    @SerializedName("poster_path")
+    private String posterPath;
 
-    public MoviesEntity(int moviesId, String title, String description, String release, Boolean favorite, String imagePath) {
-        this.moviesId = moviesId;
+    public MoviesEntity(int id, String title, String overview, String releaseDate, Boolean favorite, String posterPath) {
+        this.id = id;
         this.title = title;
-        this.description = description;
-        this.release = release;
-        this.favorite = favorite;
-        this.imagePath = imagePath;
+        this.overview = overview;
+        this.releaseDate = releaseDate;
+        if (favorite != null) {
+            this.favorite = favorite;
+        }
+        this.posterPath = posterPath;
     }
 
-    public int getMoviesId() {
-        return moviesId;
+    public int getId() {
+        return id;
     }
 
-    public void setMoviesId(int moviesId) {
-        this.moviesId = moviesId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -52,20 +60,20 @@ public class MoviesEntity {
         this.title = title;
     }
 
-    public String getDescription() {
-        return description;
+    public String getOverview() {
+        return overview;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setOverview(String overview) {
+        this.overview = overview;
     }
 
-    public String getRelease() {
-        return release;
+    public String getReleaseDate() {
+        return releaseDate;
     }
 
-    public void setRelease(String release) {
-        this.release = release;
+    public void setReleaseDate(String releaseDate) {
+        this.releaseDate = releaseDate;
     }
 
     public boolean isFavorite() {
@@ -76,11 +84,11 @@ public class MoviesEntity {
         this.favorite = favorite;
     }
 
-    public String getImagePath() {
-        return imagePath;
+    public String getPosterPath() {
+        return posterPath;
     }
 
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
+    public void setPosterPath(String posterPath) {
+        this.posterPath = posterPath;
     }
 }

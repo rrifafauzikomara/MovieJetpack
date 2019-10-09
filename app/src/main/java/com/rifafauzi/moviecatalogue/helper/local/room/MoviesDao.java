@@ -32,7 +32,7 @@ public interface MoviesDao {
     @Update(onConflict = OnConflictStrategy.FAIL)
     int updateMovies(MoviesEntity moviesEntity);
 
-    @Query("SELECT * FROM movies WHERE moviesId = :id")
+    @Query("SELECT * FROM movies WHERE id = :id")
     LiveData<MoviesEntity> getDetailMovies(int id);
 
 
@@ -51,7 +51,7 @@ public interface MoviesDao {
     @Update(onConflict = OnConflictStrategy.FAIL)
     int updateTvShow(TvShowEntity tvShowEntity);
 
-    @Query("SELECT * FROM tvshow WHERE tvShowId = :id")
+    @Query("SELECT * FROM tvshow WHERE id = :id")
     LiveData<TvShowEntity> getDetailTvShow(int id);
 
 
