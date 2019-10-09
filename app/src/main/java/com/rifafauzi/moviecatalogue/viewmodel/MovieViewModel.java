@@ -52,11 +52,11 @@ public class MovieViewModel extends ViewModel {
         }
     }
 
-    LiveData<Resource<PagedList<MoviesEntity>>> getFavorite() {
+    public LiveData<Resource<PagedList<MoviesEntity>>> getFavorite() {
         return repository.getFavoriteMoviesPaged();
     }
 
-    void setBookmark(MoviesEntity moviesEntity) {
+    public void setBookmark(MoviesEntity moviesEntity) {
         final boolean newState = !moviesEntity.isFavorite();
         repository.setMoviesFavorite(moviesEntity, newState);
     }

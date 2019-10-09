@@ -43,6 +43,10 @@ public class FavoriteMoviePagedListAdapter extends PagedListAdapter<MoviesEntity
                 }
             };
 
+    public MoviesEntity getItemById(int swipedPosition) {
+        return getItem(swipedPosition);
+    }
+
     @NonNull
     @Override
     public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -64,7 +68,7 @@ public class FavoriteMoviePagedListAdapter extends PagedListAdapter<MoviesEntity
                     .into(holder.imageViewPoster);
             holder.itemView.setOnClickListener(v -> {
                 Intent intent = new Intent(activity, DetailMovieActivity.class);
-                intent.putExtra(DetailMovieActivity.EXTRA_MOVIE, data.getId());
+                intent.putExtra(DetailMovieActivity.EXTRA_MOVIE, String.valueOf(data.getId()));
                 activity.startActivity(intent);
             });
         }

@@ -52,11 +52,11 @@ public class TvShowViewModel extends ViewModel {
         }
     }
 
-    LiveData<Resource<PagedList<TvShowEntity>>> getFavorite() {
+    public LiveData<Resource<PagedList<TvShowEntity>>> getFavorite() {
         return repository.getFavoriteTvShowPaged();
     }
 
-    void setBookmark(TvShowEntity tvShowEntity) {
+    public void setBookmark(TvShowEntity tvShowEntity) {
         final boolean newState = !tvShowEntity.isFavorite();
         repository.setTvShowFavorite(tvShowEntity, newState);
     }
