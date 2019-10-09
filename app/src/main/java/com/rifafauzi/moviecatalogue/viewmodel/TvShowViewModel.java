@@ -39,7 +39,7 @@ public class TvShowViewModel extends ViewModel {
     }
 
     // Favorite
-    void setFavorite() {
+    public void setFavorite() {
         if (detailTvShow.getValue() != null) {
             TvShowEntity tvShowEntity = detailTvShow.getValue().data;
 

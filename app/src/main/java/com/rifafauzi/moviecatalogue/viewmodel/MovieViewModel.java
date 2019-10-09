@@ -39,7 +39,7 @@ public class MovieViewModel extends ViewModel {
     }
 
     // Favorite
-    void setFavorite() {
+    public void setFavorite() {
         if (detailMovies.getValue() != null) {
             MoviesEntity moviesEntity = detailMovies.getValue().data;
 

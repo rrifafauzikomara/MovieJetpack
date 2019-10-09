@@ -102,12 +102,12 @@
     </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:src="@drawable/ic_favorite_border"
+        android:src="@drawable/ic_play_circle"
         android:layout_width="wrap_content"
         android:scaleType="centerCrop"
         android:layout_height="wrap_content"
         app:elevation="6dp"
-        android:id="@+id/btn_trailer"
+        android:id="@+id/btn_favorite"
         app:pressedTranslationZ="12dp"
         app:layout_anchor="@id/app_bar_layout"
         app:layout_anchorGravity="bottom|right|end" />

@@ -3,9 +3,11 @@ package com.rifafauzi.moviecatalogue.ui.detail;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -30,6 +32,10 @@ public class DetailMovieActivity extends AppCompatActivity {
     private TextView textViewDate, textViewDesc;
     private ImageView imageViewPoster;
     private ProgressBar progressBar;
+    private Menu menu;
+    private String movieId, tvShowId;
+    private MovieViewModel movieViewModel;
+    private TvShowViewModel tvShowViewModel;
 
     @NonNull
     private MovieViewModel obtainViewModelMovies(AppCompatActivity activity) {
@@ -61,13 +67,13 @@ public class DetailMovieActivity extends AppCompatActivity {
         imageViewPoster = findViewById(R.id.poster);
         progressBar = findViewById(R.id.progress_bar_detail);
 
-        MovieViewModel movieViewModel = obtainViewModelMovies(this);
-        TvShowViewModel tvShowViewModel = obtainViewModelTvShow(this);
+        movieViewModel = obtainViewModelMovies(this);
+        tvShowViewModel = obtainViewModelTvShow(this);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            String movieId = extras.getString(EXTRA_MOVIE);
-            String tvShowId = extras.getString(EXTRA_TvSHOW);
+            movieId = extras.getString(EXTRA_MOVIE);
+            tvShowId = extras.getString(EXTRA_TvSHOW);
             progressBar.setVisibility(View.VISIBLE);
             if (movieId != null) {
                 movieViewModel.setMovieId(Integer.parseInt(movieId));
@@ -137,12 +143,79 @@ public class DetailMovieActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_detail, menu);
+        this.menu = menu;
+        if (movieId != null) {
+            movieViewModel.detailMovies.observe(this, courseWithModule -> {
+                if (courseWithModule != null) {
+                    switch (courseWithModule.status) {
+                        case LOADING:
+                            progressBar.setVisibility(View.VISIBLE);
+                            break;
+                        case SUCCESS:
+                            if (courseWithModule.data != null) {
+                                progressBar.setVisibility(View.GONE);
+                                boolean state = courseWithModule.data.isFavorite();
+                                setFavoriteState(state);
+                            }
+                            break;
+                        case ERROR:
+                            progressBar.setVisibility(View.GONE);
+                            Toast.makeText(getApplicationContext(), "Terjadi kesalahan", Toast.LENGTH_SHORT).show();
+                            break;
+                    }
+                }
+            });
+        } else if (tvShowId != null) {
+            tvShowViewModel.detailTvShow.observe(this, courseWithModule -> {
+                if (courseWithModule != null) {
+                    switch (courseWithModule.status) {
+                        case LOADING:
+                            progressBar.setVisibility(View.VISIBLE);
+                            break;
+                        case SUCCESS:
+                            if (courseWithModule.data != null) {
+                                progressBar.setVisibility(View.GONE);
+                                boolean state = courseWithModule.data.isFavorite();
+                                setFavoriteState(state);
+                            }
+                            break;
+                        case ERROR:
+                            progressBar.setVisibility(View.GONE);
+                            Toast.makeText(getApplicationContext(), "Terjadi kesalahan", Toast.LENGTH_SHORT).show();
+                            break;
+                    }
+                }
+            });
+        }
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             finish();
             overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+        } else if (item.getItemId() == R.id.action_bookmark) {
+            if (movieId != null) {
+                movieViewModel.setFavorite();
+            } else if (tvShowId != null) {
+                tvShowViewModel.setFavorite();
+            }
+            return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void setFavoriteState(boolean state) {
+        if (menu == null) return;
+        MenuItem menuItem = menu.findItem(R.id.action_bookmark);
+        if (state) {
+            menuItem.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_favorite));
+        } else {
+            menuItem.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_favorite_border));
+        }
     }
 
     @Override
