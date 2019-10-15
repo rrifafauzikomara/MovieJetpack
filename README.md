@@ -1,2 +1,2 @@
-# MovieCatalogue
+# MovieJetpack
 All submission Android Jetpack Pro class from dicoding.com
