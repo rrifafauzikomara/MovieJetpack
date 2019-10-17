@@ -6,8 +6,8 @@ import com.rifafauzi.moviecatalogue.helper.local.LocalDataSource;
 import com.rifafauzi.moviecatalogue.helper.local.room.MoviesDatabase;
 import com.rifafauzi.moviecatalogue.helper.remote.ApiClient;
 import com.rifafauzi.moviecatalogue.helper.remote.ApiInterface;
-import com.rifafauzi.moviecatalogue.helper.repository.Repository;
 import com.rifafauzi.moviecatalogue.helper.remote.RemoteDataSource;
+import com.rifafauzi.moviecatalogue.helper.repository.Repository;
 import com.rifafauzi.moviecatalogue.utils.AppExecutors;
 
 public class Injection {

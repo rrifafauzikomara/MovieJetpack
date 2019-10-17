@@ -6,7 +6,6 @@ import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 import androidx.paging.PagedList;
 
-import com.rifafauzi.moviecatalogue.helper.local.entity.MoviesEntity;
 import com.rifafauzi.moviecatalogue.helper.local.entity.TvShowEntity;
 import com.rifafauzi.moviecatalogue.helper.repository.Repository;
 import com.rifafauzi.moviecatalogue.helper.vo.Resource;

@@ -134,21 +134,25 @@ public class RemoteDataSource {
 
     public interface GetMoviesCallback {
         void onMoviesLoaded(List<Movies> responseMovies);
+
         void onDataNotAvailable(String errorMessage);
     }
 
     public interface GetTvShowCallback {
         void onTvShowLoaded(List<Movies> responseTvShow);
+
         void onDataNotAvailable(String errorMessage);
     }
 
     public interface GetMoviesDetailCallback {
         void onMoviesDetailLoaded(Movies responseMovies);
+
         void onDataNotAvailable(String errorMessage);
     }
 
     public interface GetTvShowDetailCallback {
         void onTvShowDetailLoaded(Movies responseTvShow);
+
         void onDataNotAvailable(String errorMessage);
     }
 }

@@ -47,8 +47,6 @@ public class LocalDataSource {
     }
 
 
-
-
     public LiveData<List<TvShowEntity>> getAllTvShow() {
         return moviesDao.getTvShow();
     }

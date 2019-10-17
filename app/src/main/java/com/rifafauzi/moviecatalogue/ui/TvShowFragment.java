@@ -1,6 +1,11 @@
 package com.rifafauzi.moviecatalogue.ui;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -10,18 +15,10 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ProgressBar;
-import android.widget.Toast;
-
 import com.rifafauzi.moviecatalogue.R;
 import com.rifafauzi.moviecatalogue.adapter.TvShowAdapter;
 import com.rifafauzi.moviecatalogue.viewmodel.TvShowViewModel;
 import com.rifafauzi.moviecatalogue.viewmodel.ViewModelFactory;
-
-import static com.rifafauzi.moviecatalogue.helper.vo.Status.LOADING;
 
 
 public class TvShowFragment extends Fragment {

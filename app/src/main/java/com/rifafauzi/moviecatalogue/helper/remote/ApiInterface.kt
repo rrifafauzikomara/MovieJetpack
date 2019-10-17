@@ -2,9 +2,8 @@ package com.rifafauzi.moviecatalogue.helper.remote
 
 import com.rifafauzi.moviecatalogue.model.Movies
 import com.rifafauzi.moviecatalogue.model.ResponseMovies
-
-import retrofit2.http.GET
 import retrofit2.Call
+import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 

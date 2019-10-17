@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.paging.PagedList;
 
-import com.rifafauzi.moviecatalogue.helper.local.entity.MoviesEntity;
 import com.rifafauzi.moviecatalogue.helper.local.entity.TvShowEntity;
 import com.rifafauzi.moviecatalogue.helper.repository.Repository;
 import com.rifafauzi.moviecatalogue.helper.vo.Resource;
@@ -18,7 +17,6 @@ import org.junit.Test;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -30,7 +28,6 @@ public class TvShowViewModelTest {
 
     private TvShowViewModel viewModel;
     private Repository repository = mock(Repository.class);
-    private String USERNAME = "Dicoding";
     private TvShowEntity dummyTvShow = FakeData.generateDummyLocalTvShow().get(0);
     private int tvShowId = dummyTvShow.getId();
 
@@ -55,7 +52,8 @@ public class TvShowViewModelTest {
 
         Observer<Resource<List<TvShowEntity>>> observer = mock(Observer.class);
 
-        viewModel.setUsername(USERNAME);
+        String username = "Dicoding";
+        viewModel.setUsername(username);
 
         viewModel.tvShow.observeForever(observer);
 

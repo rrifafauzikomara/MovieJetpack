@@ -3,10 +3,6 @@ package com.rifafauzi.moviecatalogue.helper.remote;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.rifafauzi.moviecatalogue.model.Movies;
-
-import java.util.List;
-
 import static com.rifafauzi.moviecatalogue.helper.remote.StatusResponse.EMPTY;
 import static com.rifafauzi.moviecatalogue.helper.remote.StatusResponse.ERROR;
 import static com.rifafauzi.moviecatalogue.helper.remote.StatusResponse.SUCCESS;

@@ -2,15 +2,15 @@ package com.rifafauzi.moviecatalogue.ui.home;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.rifafauzi.moviecatalogue.R;
 import com.rifafauzi.moviecatalogue.ui.MovieFragment;
 import com.rifafauzi.moviecatalogue.ui.TvShowFragment;
 import com.rifafauzi.moviecatalogue.ui.favorite.FavoriteFragment;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -23,7 +23,7 @@ public class HomeActivity extends AppCompatActivity {
             fragment = MovieFragment.newInstance();
         } else if (item.getItemId() == R.id.navigation_tv_show) {
             fragment = TvShowFragment.newInstance();
-        } else  if (item.getItemId() == R.id.navigation_favorite) {
+        } else if (item.getItemId() == R.id.navigation_favorite) {
             fragment = FavoriteFragment.newInstance();
         }
 

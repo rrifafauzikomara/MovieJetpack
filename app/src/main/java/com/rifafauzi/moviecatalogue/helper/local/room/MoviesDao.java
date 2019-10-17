@@ -55,5 +55,4 @@ public interface MoviesDao {
     LiveData<TvShowEntity> getDetailTvShow(int id);
 
 
-
 }

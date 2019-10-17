@@ -28,7 +28,6 @@ public class MovieViewModelTest {
 
     private MovieViewModel viewModel;
     private Repository repository = mock(Repository.class);
-    private String USERNAME = "Dicoding";
     private MoviesEntity dummyMovies = FakeData.generateDummyLocalMovies().get(0);
     private int moviesId = dummyMovies.getId();
 
@@ -53,7 +52,8 @@ public class MovieViewModelTest {
 
         Observer<Resource<List<MoviesEntity>>> observer = mock(Observer.class);
 
-        viewModel.setUsername(USERNAME);
+        String username = "Dicoding";
+        viewModel.setUsername(username);
 
         viewModel.movies.observeForever(observer);
 

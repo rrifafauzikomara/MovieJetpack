@@ -8,15 +8,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.rifafauzi.moviecatalogue.R
 import com.rifafauzi.moviecatalogue.helper.local.entity.MoviesEntity
-import com.rifafauzi.moviecatalogue.model.Movies
 import com.rifafauzi.moviecatalogue.ui.detail.DetailMovieActivity
-
-import java.util.ArrayList
+import java.util.*
 
 class MovieAdapter(private val activity: Activity) : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
     private val movies = ArrayList<MoviesEntity>()
